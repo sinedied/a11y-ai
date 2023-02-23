@@ -12,17 +12,18 @@ const help = `Usage: a11y <files> [options]
 
 Options:
   -f, --fix             Automatically apply fixes suggestions
-  --no-color            Disable color output
+  -l, --patch-diff      Use patch-like diff instead of character diff
   --verbose             Show detailed logs
   --help                Show this help
 `;
 
 export async function run(args: string[]) {
   const options = minimist(args, {
-    boolean: ['fix', 'verbose', 'version', 'help'],
+    boolean: ['fix', 'verbose', 'version', 'help', 'patch-diff'],
     alias: {
       v: 'version',
-      b: 'fix'
+      b: 'fix',
+      p: 'patch-diff'
     }
   });
 
@@ -54,5 +55,8 @@ export async function run(args: string[]) {
     return;
   }
 
-  await fixFiles(files, !options.fix);
+  await fixFiles(files, {
+    interactive: !options.fix,
+    patchDiff: Boolean(options['patch-diff'])
+  });
 }

@@ -31,7 +31,7 @@ Usage: a11y-ai [<files>] [options]
 
 Options:
   -f, --fix             Automatically apply fixes suggestions
-  --no-color            Disable color output
+  -l, --patch-diff      Use patch-like diff instead of character diff
   --verbose             Show detailed logs
   --help                Show this help
 ```
