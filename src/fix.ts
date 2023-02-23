@@ -15,8 +15,15 @@ export type FixOptions = {
 
 export async function fixFiles(files: string[], options: FixOptions = {}) {
   try {
-    const promises = files.map(async (file) => fixFile(file, options));
-    const results = await Promise.all(promises);
+    if (options.interactive) {
+      for (const file of files) {
+        // eslint-disable-next-line no-await-in-loop
+        await fixFile(file, options);
+      }
+    } else {
+      const promises = files.map(async (file) => fixFile(file, options));
+      await Promise.all(promises);
+    }
   } catch (error: unknown) {
     const error_ = error as Error;
     console.error(error_.message);
