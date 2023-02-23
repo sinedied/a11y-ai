@@ -21,9 +21,9 @@ export async function run(args: string[]) {
   const options = minimist(args, {
     boolean: ['fix', 'verbose', 'version', 'help', 'patch-diff'],
     alias: {
-      v: 'version',
-      b: 'fix',
-      p: 'patch-diff'
+      f: 'fix',
+      p: 'patch-diff',
+      v: 'version'
     }
   });
 
