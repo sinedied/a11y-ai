@@ -5,7 +5,7 @@
   "type": "module",
   "repository": {
     "type": "git",
-    "url": "https://github.com/sinedied/a11y-ai.git"
+    "url": "https://github.com/sinedied/a11y-ai"
   },
   "exports": "./lib/index.js",
   "types": "./lib/index.d.ts",
