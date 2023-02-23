@@ -1,14 +1,15 @@
 import fs from 'node:fs/promises';
+import process from 'node:process';
 import { createInterface } from 'node:readline';
 import chalk from 'chalk';
 import { diffChars } from 'diff';
-import Debug from 'debug';
+import createDebug from 'debug';
 import { suggestFix } from './ai.js';
 
-const debug = Debug('fix');
+const debug = createDebug('fix');
 
 export async function fixFiles(files: string[], interactive = true) {
-  const promises = files.map(file => fixFile(file, interactive));
+  const promises = files.map(async (file) => fixFile(file, interactive));
   const results = await Promise.all(promises);
 }
 
@@ -23,14 +24,14 @@ export async function fixFile(file: string, interactive = true) {
     }
 
     if (interactive) {
-      await interactiveFix(file, content, suggestion)
+      await interactiveFix(file, content, suggestion);
     } else {
       await fs.writeFile(file, suggestion);
       debug(`Applied fix for '${file}'`);
     }
   } catch (error: unknown) {
-    const err = error as Error;
-    const message = `Could not suggest or apply fix for '${file}': ${err.message ?? err}`;
+    const error_ = error as Error;
+    const message = `Could not suggest or apply fix for '${file}': ${error_.message ?? error_}`;
     debug(message);
     throw new Error(message);
   }
@@ -48,6 +49,7 @@ export async function interactiveFix(file: string, content: string, suggestion: 
       process.stdout.write(part.value);
     }
   }
+
   const confirm = await askForConfirmation(`${chalk.dim('---')}\nApply changes?`);
   if (confirm) {
     await fs.writeFile(file, suggestion);

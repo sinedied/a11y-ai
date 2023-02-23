@@ -1,10 +1,10 @@
 import process from 'node:process';
 import path, { dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
+import fs from 'node:fs';
 import debug from 'debug';
 import glob from 'fast-glob';
 import minimist from 'minimist';
-import fs from 'fs';
 import { fixFiles } from './fix.js';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
@@ -28,7 +28,7 @@ export async function run(args: string[]) {
 
   if (options.version) {
     const file = fs.readFileSync(path.join(__dirname, 'package.json'), 'utf8');
-    const pkg = JSON.parse(file);
+    const pkg = JSON.parse(file) as Record<string, string>;
     console.info(pkg.version);
     return;
   }
@@ -54,6 +54,5 @@ export async function run(args: string[]) {
     return;
   }
 
-  fixFiles(files, !options.fix);
-  // console.log(files);
+  await fixFiles(files, !options.fix);
 }
