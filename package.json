@@ -1,7 +1,7 @@
 {
   "name": "a11y-ai",
-  "version": "1.0.0",
-  "description": "An experimental tool to automatically detect accessibility issues in web pages and provide suggestions for fixing them",
+  "version": "0.0.0",
+  "description": "Experimental tool to automatically detect accessibility issues in web pages and provide suggestions for fixing them",
   "type": "module",
   "repository": {
     "type": "git",
@@ -10,7 +10,8 @@
   "exports": "./lib/index.js",
   "types": "./lib/index.d.ts",
   "bin": {
-    "a11y": "./bin/a11y.js"
+    "a11y-ai": "./bin/a11y-ai.js",
+    "a11y": "./bin/a11y-ai.js"
   },
   "scripts": {
     "build": "npm run clean -s && tsc",
@@ -71,8 +72,7 @@
     "envs": [
       "node",
       "jest"
-    ],
-    "rules": {}
+    ]
   },
   "engines": {
     "node": ">=16.0.0",
