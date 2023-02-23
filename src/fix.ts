@@ -18,8 +18,8 @@ export async function fixFiles(files: string[], options: FixOptions = {}) {
     const promises = files.map(async (file) => fixFile(file, options));
     const results = await Promise.all(promises);
   } catch (error: unknown) {
-    const err = error as Error;
-    console.error(err.message);
+    const error_ = error as Error;
+    console.error(error_.message);
     process.exitCode = 1;
   }
 }
@@ -35,6 +35,7 @@ export async function fixFile(file: string, options: FixOptions = {}) {
       if (!interactive) {
         console.info(chalk.dim(file));
       }
+
       return false;
     }
 
@@ -67,42 +68,45 @@ export function generateColoredDiff(content: string, suggestion: string) {
       coloredDiff += part.value;
     }
   }
+
   return coloredDiff.trim();
 }
 
 export function generatePatchDiff(file: string, content: string, suggestion: string) {
   const diff = createPatch(file, content, suggestion);
-  return diff
-    // Remove header
-    .split(/={10,}/)
-    .slice(1)
-    .join('')
-    .split('\n')
-    .map((line) => {
-      switch (line[0]) {
-        case '+': {
-          return line.startsWith('+++') ? line : chalk.green(line);
-        }
+  return (
+    diff
+      // Remove header
+      .split(/={10,}/)
+      .slice(1)
+      .join('')
+      .split('\n')
+      .map((line) => {
+        switch (line[0]) {
+          case '+': {
+            return line.startsWith('+++') ? line : chalk.green(line);
+          }
 
-        case '-': {
-          return line.startsWith('---') ? line : chalk.red(line);
-        }
+          case '-': {
+            return line.startsWith('---') ? line : chalk.red(line);
+          }
 
-        case '@': {
-          return chalk.cyan(line);
-        }
+          case '@': {
+            return chalk.cyan(line);
+          }
 
-        case '\\': {
-          return chalk.dim(line);
-        }
+          case '\\': {
+            return chalk.dim(line);
+          }
 
-        default: {
-          return line;
+          default: {
+            return line;
+          }
         }
-      }
-    })
-    .join('\n')
-    .trim();
+      })
+      .join('\n')
+      .trim()
+  );
 }
 
 export async function interactiveFix(file: string, content: string, suggestion: string, options: FixOptions = {}) {
