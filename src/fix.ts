@@ -17,7 +17,9 @@ export async function fixFiles(files: string[], options: FixOptions = {}) {
   try {
     const promises = files.map(async (file) => fixFile(file, options));
     const results = await Promise.all(promises);
-  } catch {
+  } catch (error: unknown) {
+    const err = error as Error;
+    console.error(err.message);
     process.exitCode = 1;
   }
 }
@@ -30,14 +32,20 @@ export async function fixFile(file: string, options: FixOptions = {}) {
     const suggestion = await suggestFix(content);
     if (!suggestion) {
       debug(`No fix suggestion for '${file}'`);
+      if (!interactive) {
+        console.info(chalk.dim(file));
+      }
       return false;
     }
 
     if (interactive) {
       await interactiveFix(file, content, suggestion, options);
     } else {
+      debug(`Suggested fix for '${file}':`);
+      debug(generatePatchDiff(file, content, suggestion));
       await fs.writeFile(file, suggestion);
       debug(`Applied fix for '${file}'`);
+      console.info(file);
     }
   } catch (error: unknown) {
     const error_ = error as Error;
@@ -59,58 +67,50 @@ export function generateColoredDiff(content: string, suggestion: string) {
       coloredDiff += part.value;
     }
   }
-
   return coloredDiff.trim();
 }
 
-export function generatePatchDiff(file: string, content: string, suggestion: string, colors = true) {
-  let diff = createPatch(file, content, suggestion);
-  // Remove header
-  diff = diff
+export function generatePatchDiff(file: string, content: string, suggestion: string) {
+  const diff = createPatch(file, content, suggestion);
+  return diff
+    // Remove header
     .split(/={10,}/)
     .slice(1)
     .join('')
-    .trim();
-
-  if (colors) {
-    diff = diff
-      .split('\n')
-      .map((line) => {
-        switch (line[0]) {
-          case '+': {
-            return line.startsWith('+++') ? line : chalk.green(line);
-          }
-
-          case '-': {
-            return line.startsWith('---') ? line : chalk.red(line);
-          }
-
-          case '@': {
-            return chalk.cyan(line);
-          }
-
-          case '\\': {
-            return chalk.dim(line);
-          }
-
-          default: {
-            return line;
-          }
+    .split('\n')
+    .map((line) => {
+      switch (line[0]) {
+        case '+': {
+          return line.startsWith('+++') ? line : chalk.green(line);
         }
-      })
-      .join('\n')
-      .trim();
-  }
 
-  return diff;
+        case '-': {
+          return line.startsWith('---') ? line : chalk.red(line);
+        }
+
+        case '@': {
+          return chalk.cyan(line);
+        }
+
+        case '\\': {
+          return chalk.dim(line);
+        }
+
+        default: {
+          return line;
+        }
+      }
+    })
+    .join('\n')
+    .trim();
 }
 
 export async function interactiveFix(file: string, content: string, suggestion: string, options: FixOptions = {}) {
-  console.log(`Changes suggested for ${chalk.cyan(file)}:\n${chalk.dim('---')}`);
+  console.info(`Changes suggested for ${chalk.cyan(file)}:\n${chalk.dim('---')}`);
   if (options.patchDiff) {
-    console.log(generatePatchDiff(file, content, suggestion));
+    console.info(generatePatchDiff(file, content, suggestion));
   } else {
-    console.log(generateColoredDiff(content, suggestion));
+    console.info(generateColoredDiff(content, suggestion));
   }
 
   const confirm = await askForConfirmation(`${chalk.dim('---')}\nApply changes?`);
