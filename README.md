@@ -33,6 +33,9 @@ npm install -g a11y-ai
 ```
 Usage: a11y-ai [<files>] [options]
 
+If no files are specified, it will scan the current directory and
+subdirectories for HTML files.
+
 Options:
   -f, --fix             Automatically apply fixes suggestions
   -l, --patch-diff      Use patch-like diff instead of character diff

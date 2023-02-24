@@ -8,6 +8,9 @@ import { reportOutputFile } from './constants.js';
 
 const help = `Usage: a11y <files> [options]
 
+If no files are specified, it will scan the current directory and
+subdirectories for HTML files.
+
 Options:
   -f, --fix             Automatically apply fixes suggestions
   -l, --patch-diff      Use patch-like diff instead of character diff
