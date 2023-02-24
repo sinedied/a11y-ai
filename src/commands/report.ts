@@ -29,7 +29,9 @@ export async function report(files: string[], options: ReportOptions = {}) {
     chalk.level = 1;
     const promises = files.map(async (file) => reportFile(file, options));
     const results = await Promise.all(promises);
-    await generateHtmlReport(reportOutputFile, results);
+    const html = await generateHtmlReport(results);
+    await fs.mkdir(path.dirname(reportOutputFile), { recursive: true });
+    await fs.writeFile(reportOutputFile, html);
     chalk.level = oldLevel;
     spinner.succeed(`Generated report to ${chalk.cyan(reportOutputFile)}`);
   } catch (error: unknown) {
@@ -40,7 +42,7 @@ export async function report(files: string[], options: ReportOptions = {}) {
   }
 }
 
-export async function generateHtmlReport(outputFile: string, reports: FileReport[]) {
+export async function generateHtmlReport(reports: FileReport[]) {
   const ansiToHtml = new AnsiToHtml({
     fg: '#000',
     colors: {
@@ -70,8 +72,7 @@ export async function generateHtmlReport(outputFile: string, reports: FileReport
     }
   }
 
-  await fs.mkdir(path.dirname(outputFile), { recursive: true });
-  await fs.writeFile(outputFile, html);
+  return html;
 }
 
 export async function reportFile(file: string, options: ReportOptions = {}): Promise<FileReport> {
