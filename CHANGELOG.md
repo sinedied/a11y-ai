@@ -1,3 +1,10 @@
+## [0.2.1](https://github.com/sinedied/a11y-ai/compare/0.2.0...0.2.1) (2023-02-24)
+
+
+### Bug Fixes
+
+* add missing export ([bed26dc](https://github.com/sinedied/a11y-ai/commit/bed26dc5ec81c37b958c7d2e36c497581dc9555c))
+
 # [0.2.0](https://github.com/sinedied/a11y-ai/compare/0.1.1...0.2.0) (2023-02-24)
 
 
