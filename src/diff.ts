@@ -55,5 +55,6 @@ export function generatePatchDiff(file: string, content: string, suggestion: str
       .join('\n')
       .trim();
   }
+
   return diff;
 }
