@@ -1,19 +1,35 @@
 name: action
 on:
   push:
-    branches:
-      - main
+    branches: [main]
   pull_request:
-    branches:
-      - main
+    branches: [main]
 
 jobs:
-  build:
+  report:
     runs-on: ubuntu-latest
+    permissions:
+      pull-requests: write
+
     steps:
     - uses: actions/checkout@v3
+
+    # Generate a11y report
     - uses: sinedied/a11y-ai-action@v1
+      id: a11y_ai
+      with:
+        files: '**/*.html'
+
+    # Add a comment with the report if it's a pull request
+    - uses: actions-ecosystem/action-create-comment@v1
+      if: ${{ github.event_name == 'pull_request' }}
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        body: |
+          ${{ steps.a11y_ai.outputs.report_md }}
+
+    # Upload the report as an artifact
     - uses: actions/upload-artifact@v3
       with:
         name: A11y Report
-        path: report/a11y-report.html
+        path: ${{ steps.a11y_ai.outputs.report_path }}
