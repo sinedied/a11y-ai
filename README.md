@@ -8,6 +8,10 @@
 
 > Experimental tool to automatically detect accessibility issues in web pages and provide suggestions for fixing them.
 
+![a11y-ai portrait by another AI](https://user-images.githubusercontent.com/593151/221144683-af658535-500b-4024-afe9-032526b3eec9.png)
+
+*Can I help fixing your a11y issues?*
+
 ## Quickstart
 
 Run it directly on your project without installing it:
