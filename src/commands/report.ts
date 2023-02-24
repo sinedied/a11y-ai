@@ -24,9 +24,13 @@ export async function report(files: string[], options: ReportOptions = {}) {
   let spinner;
   try {
     spinner = ora('Generating report...').start();
+    // Force color output for HTML report
+    const oldLevel = chalk.level;
+    chalk.level = 1;
     const promises = files.map(async (file) => reportFile(file, options));
     const results = await Promise.all(promises);
     await generateHtmlReport(reportOutputFile, results);
+    chalk.level = oldLevel;
     spinner.succeed(`Generated report to ${chalk.cyan(reportOutputFile)}`);
   } catch (error: unknown) {
     spinner?.fail();
@@ -38,6 +42,7 @@ export async function report(files: string[], options: ReportOptions = {}) {
 
 export async function generateHtmlReport(outputFile: string, reports: FileReport[]) {
   const ansiToHtml = new AnsiToHtml({
+    fg: '#000',
     colors: {
       // eslint-disable-next-line @typescript-eslint/naming-convention
       2: '#070',

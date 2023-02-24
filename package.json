@@ -14,6 +14,7 @@
     "a11y": "./bin/a11y-ai.js"
   },
   "scripts": {
+    "start": "node ./bin/a11y-ai.js",
     "build": "npm run clean -s && tsc",
     "build:watch": "tsc -w --sourceMap",
     "lint": "xo",
