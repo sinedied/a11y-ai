@@ -1,8 +1,8 @@
 name: release
 on:
-  workflow_dispatch:
-  repository_dispatch:
-    types: [release]
+  push:
+    branches:
+      - main
 
 permissions:
   contents: write
@@ -18,9 +18,8 @@ jobs:
     - uses: actions/setup-node@v3
       with:
         node-version: 18
-    - run: |
-        npm ci
-        npm run build
+    - run: npm ci
+    - run: npm run build
     - run: npx semantic-release
       if: success()
       env:
