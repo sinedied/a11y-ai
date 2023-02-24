@@ -1,3 +1,10 @@
+## [0.2.2](https://github.com/sinedied/a11y-ai/compare/0.2.1...0.2.2) (2023-02-24)
+
+
+### Bug Fixes
+
+* colors on report output ([74f3c36](https://github.com/sinedied/a11y-ai/commit/74f3c36fb932e9c8c7d330717da1e7ac915368f4))
+
 ## [0.2.1](https://github.com/sinedied/a11y-ai/compare/0.2.0...0.2.1) (2023-02-24)
 
 
