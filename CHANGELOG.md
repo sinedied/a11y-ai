@@ -1,3 +1,11 @@
+# [0.3.0](https://github.com/sinedied/a11y-ai/compare/0.2.2...0.3.0) (2023-02-24)
+
+
+### Features
+
+* add --format option allowing markdown reports ([b3ef60d](https://github.com/sinedied/a11y-ai/commit/b3ef60dbd5251129ec0566812a6c2e6e1d69016c))
+* lib now exports report html contents ([a632367](https://github.com/sinedied/a11y-ai/commit/a632367c11e2d1113970a3dd8c28362c1155157f))
+
 ## [0.2.2](https://github.com/sinedied/a11y-ai/compare/0.2.1...0.2.2) (2023-02-24)
 
 
