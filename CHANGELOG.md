@@ -1,3 +1,11 @@
+# [0.2.0](https://github.com/sinedied/a11y-ai/compare/0.1.1...0.2.0) (2023-02-24)
+
+
+### Features
+
+* add --report option to generate html report ([bf4930c](https://github.com/sinedied/a11y-ai/commit/bf4930c9e09d6e7e51189bcdcd42a5f082e0ce84))
+* add spinner for long-running operations ([fbbfa6b](https://github.com/sinedied/a11y-ai/commit/fbbfa6b30b15516da52193d840c86ee6287fcde9))
+
 ## [0.1.1](https://github.com/sinedied/a11y-ai/compare/0.1.0...0.1.1) (2023-02-23)
 
 
