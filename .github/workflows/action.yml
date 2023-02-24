@@ -1,0 +1,19 @@
+name: action
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+    - uses: actions/a11y-ai@v1
+    - uses: actions/upload-artifact@v3
+      with:
+        name: A11y Report
+        path: report/a11y-report.html
