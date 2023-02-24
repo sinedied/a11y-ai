@@ -17,14 +17,17 @@ export function generateColoredDiff(content: string, suggestion: string) {
   return coloredDiff.trim();
 }
 
-export function generatePatchDiff(file: string, content: string, suggestion: string) {
-  const diff = createPatch(file, content, suggestion);
-  return (
-    diff
-      // Remove header
-      .split(/={10,}/)
-      .slice(1)
-      .join('')
+export function generatePatchDiff(file: string, content: string, suggestion: string, colors = true) {
+  let diff = createPatch(file, content, suggestion);
+  // Remove header
+  diff = diff
+    .split(/={10,}/)
+    .slice(1)
+    .join('')
+    .trim();
+
+  if (colors) {
+    diff = diff
       .split('\n')
       .map((line) => {
         switch (line[0]) {
@@ -50,6 +53,7 @@ export function generatePatchDiff(file: string, content: string, suggestion: str
         }
       })
       .join('\n')
-      .trim()
-  );
+      .trim();
+  }
+  return diff;
 }

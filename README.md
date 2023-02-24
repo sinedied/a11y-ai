@@ -40,6 +40,7 @@ Options:
   -f, --fix             Automatically apply fixes suggestions
   -l, --patch-diff      Use patch-like diff instead of character diff
   -r, --report          Generate a report instead of fixing files
+  -o, --format <format> Report format [html, md] (default: html)
   --verbose             Show detailed logs
   --help                Show this help
 ```

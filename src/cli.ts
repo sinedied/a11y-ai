@@ -4,7 +4,7 @@ import glob from 'fast-glob';
 import minimist from 'minimist';
 import { fix, report } from './commands/index.js';
 import { getPackageJson } from './util.js';
-import { reportOutputFile } from './constants.js';
+import { reportOutputFilename } from './constants.js';
 
 const help = `Usage: a11y <files> [options]
 
@@ -15,17 +15,20 @@ Options:
   -f, --fix             Automatically apply fixes suggestions
   -l, --patch-diff      Use patch-like diff instead of character diff
   -r, --report          Generate a report instead of fixing files
+  -o, --format <format> Report format [html, md] (default: html)
   --verbose             Show detailed logs
   --help                Show this help
 `;
 
 export async function run(args: string[]) {
   const options = minimist(args, {
+    string: ['format'],
     boolean: ['fix', 'verbose', 'version', 'help', 'patch-diff', 'report'],
     alias: {
       f: 'fix',
       p: 'patch-diff',
       r: 'report',
+      o: 'format',
       v: 'version'
     }
   });
@@ -48,7 +51,7 @@ export async function run(args: string[]) {
   const filesOrGlobs = options._.length > 0 ? options._ : ['**/*.html'];
   const files = await glob(filesOrGlobs, {
     dot: true,
-    ignore: ['**/node_modules/**', reportOutputFile]
+    ignore: ['**/node_modules/**', `${reportOutputFilename}.*`]
   });
 
   if (files.length === 0) {
@@ -58,7 +61,9 @@ export async function run(args: string[]) {
   }
 
   if (options.report) {
-    await report(files);
+    await report(files, {
+      format: options.format as 'html' | 'md'
+    });
   } else {
     await fix(files, {
       interactive: !options.fix,
