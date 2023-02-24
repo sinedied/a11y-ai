@@ -44,3 +44,9 @@ Options:
   --verbose             Show detailed logs
   --help                Show this help
 ```
+
+## Automated reports
+
+You can generate a report of all the issues found in your project automatically on your CI/CD using this GitHub Action: [sinedied/a11y-ai-action](https://github.com/sinedied/a11y-ai-action);
+
+You can see a complete [example workflow](https://github.com/sinedied/a11y-ai/blob/main/.github/workflows/action.yml) in action on this repository.
