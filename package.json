@@ -40,7 +40,8 @@
     "fast-glob": "^3.2.12",
     "got": "^12.5.3",
     "jsdiff": "^1.1.1",
-    "minimist": "^1.2.8"
+    "minimist": "^1.2.8",
+    "ora": "^6.1.2"
   },
   "keywords": [
     "accessibility",

@@ -2,11 +2,13 @@ import path from 'node:path';
 import fs from 'node:fs/promises';
 import process from 'node:process';
 import createDebug from 'debug';
+import chalk from 'chalk';
 import AnsiToHtml from 'ansi-to-html';
+import ora from 'ora';
 import { generatePatchDiff } from '../diff.js';
 import { suggestFix } from '../ai.js';
 import { getPackageJson, escapeForHtml } from '../util.js';
-import { REPORT_OUTPUT_FILE } from '../constants.js';
+import { reportOutputFile } from '../constants.js';
 
 const debug = createDebug('report');
 
@@ -19,11 +21,15 @@ export type FileReport = {
 };
 
 export async function report(files: string[], options: ReportOptions = {}) {
+  let spinner;
   try {
+    spinner = ora('Generating report...').start();
     const promises = files.map(async (file) => reportFile(file, options));
     const results = await Promise.all(promises);
-    await generateHtmlReport(REPORT_OUTPUT_FILE, results);
+    await generateHtmlReport(reportOutputFile, results);
+    spinner.succeed(`Generated report to ${chalk.cyan(reportOutputFile)}`);
   } catch (error: unknown) {
+    spinner?.fail();
     const error_ = error as Error;
     console.error(error_.message);
     process.exitCode = 1;
@@ -33,12 +39,14 @@ export async function report(files: string[], options: ReportOptions = {}) {
 export async function generateHtmlReport(outputFile: string, reports: FileReport[]) {
   const ansiToHtml = new AnsiToHtml({
     colors: {
+      // eslint-disable-next-line @typescript-eslint/naming-convention
       2: '#070',
-      6: '#077',
+      // eslint-disable-next-line @typescript-eslint/naming-convention
+      6: '#077'
     }
   });
   const pkg = await getPackageJson();
-  const repoUrl: string = pkg.repository.url;
+  const repoUrl = pkg.repository.url as string;
 
   let html =
     '<!doctype html><html><head><meta charset="utf-8"><title>Accessibility Suggestions Report</title><style>*{box-sizing:border-box}html{margin: 10px}</style></head><body>';
@@ -50,14 +58,15 @@ export async function generateHtmlReport(outputFile: string, reports: FileReport
       html += `<hr>`;
       html += `<h3>Suggested fixes for <code>${report.file}</code></h3>`;
       html += '<details><summary>Raw suggestion</summary>';
-      html += `<pre><textarea rows="5" style="width:100%">${escapeForHtml(report.suggestion)}</textarea></pre></details>`;
+      html += `<pre><textarea rows="5" style="width:100%">${escapeForHtml(
+        report.suggestion
+      )}</textarea></pre></details>`;
       html += `<p><pre>${ansiToHtml.toHtml(escapeForHtml(report.patch))}</pre></p>`;
     }
   }
 
   await fs.mkdir(path.dirname(outputFile), { recursive: true });
   await fs.writeFile(outputFile, html);
-  console.info(`Generated report to ${outputFile}`);
 }
 
 export async function reportFile(file: string, options: ReportOptions = {}): Promise<FileReport> {

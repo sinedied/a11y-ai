@@ -4,7 +4,7 @@ import glob from 'fast-glob';
 import minimist from 'minimist';
 import { fix, report } from './commands/index.js';
 import { getPackageJson } from './util.js';
-import { REPORT_OUTPUT_FILE } from './constants.js';
+import { reportOutputFile } from './constants.js';
 
 const help = `Usage: a11y <files> [options]
 
@@ -45,7 +45,7 @@ export async function run(args: string[]) {
   const filesOrGlobs = options._.length > 0 ? options._ : ['**/*.html'];
   const files = await glob(filesOrGlobs, {
     dot: true,
-    ignore: ['**/node_modules/**', REPORT_OUTPUT_FILE]
+    ignore: ['**/node_modules/**', reportOutputFile]
   });
 
   if (files.length === 0) {
