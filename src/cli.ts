@@ -1,35 +1,34 @@
 import process from 'node:process';
-import path, { dirname } from 'node:path';
-import { fileURLToPath } from 'node:url';
-import fs from 'node:fs';
 import debug from 'debug';
 import glob from 'fast-glob';
 import minimist from 'minimist';
-import { fixFiles } from './fix.js';
+import { fix, report } from './commands/index.js';
+import { getPackageJson } from './util.js';
+import { REPORT_OUTPUT_FILE } from './constants.js';
 
-const __dirname = dirname(fileURLToPath(import.meta.url));
 const help = `Usage: a11y <files> [options]
 
 Options:
   -f, --fix             Automatically apply fixes suggestions
   -l, --patch-diff      Use patch-like diff instead of character diff
+  -r, --report          Generate a report instead of fixing files
   --verbose             Show detailed logs
   --help                Show this help
 `;
 
 export async function run(args: string[]) {
   const options = minimist(args, {
-    boolean: ['fix', 'verbose', 'version', 'help', 'patch-diff'],
+    boolean: ['fix', 'verbose', 'version', 'help', 'patch-diff', 'report'],
     alias: {
       f: 'fix',
       p: 'patch-diff',
+      r: 'report',
       v: 'version'
     }
   });
 
   if (options.version) {
-    const file = fs.readFileSync(path.join(__dirname, 'package.json'), 'utf8');
-    const pkg = JSON.parse(file) as Record<string, string>;
+    const pkg = await getPackageJson();
     console.info(pkg.version);
     return;
   }
@@ -46,7 +45,7 @@ export async function run(args: string[]) {
   const filesOrGlobs = options._.length > 0 ? options._ : ['**/*.html'];
   const files = await glob(filesOrGlobs, {
     dot: true,
-    ignore: ['**/node_modules/**']
+    ignore: ['**/node_modules/**', REPORT_OUTPUT_FILE]
   });
 
   if (files.length === 0) {
@@ -55,8 +54,12 @@ export async function run(args: string[]) {
     return;
   }
 
-  await fixFiles(files, {
-    interactive: !options.fix,
-    patchDiff: Boolean(options['patch-diff'])
-  });
+  if (options.report) {
+    await report(files);
+  } else {
+    await fix(files, {
+      interactive: !options.fix,
+      patchDiff: Boolean(options['patch-diff'])
+    });
+  }
 }

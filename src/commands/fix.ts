@@ -1,10 +1,10 @@
 import fs from 'node:fs/promises';
 import process from 'node:process';
-import { createInterface } from 'node:readline';
 import chalk from 'chalk';
-import { createPatch, diffChars } from 'diff';
 import createDebug from 'debug';
-import { suggestFix } from './ai.js';
+import { suggestFix } from '../ai.js';
+import { generateColoredDiff, generatePatchDiff } from '../diff.js';
+import { askForConfirmation } from '../util.js';
 
 const debug = createDebug('fix');
 
@@ -13,7 +13,7 @@ export type FixOptions = {
   patchDiff?: boolean;
 };
 
-export async function fixFiles(files: string[], options: FixOptions = {}) {
+export async function fix(files: string[], options: FixOptions = {}) {
   try {
     if (options.interactive) {
       for (const file of files) {
@@ -63,59 +63,6 @@ export async function fixFile(file: string, options: FixOptions = {}) {
   }
 }
 
-export function generateColoredDiff(content: string, suggestion: string) {
-  const diff = diffChars(content, suggestion);
-  let coloredDiff = '';
-  for (const part of diff) {
-    if (part.added) {
-      coloredDiff += chalk.green(part.value);
-    } else if (part.removed) {
-      coloredDiff += chalk.red(part.value);
-    } else {
-      coloredDiff += part.value;
-    }
-  }
-
-  return coloredDiff.trim();
-}
-
-export function generatePatchDiff(file: string, content: string, suggestion: string) {
-  const diff = createPatch(file, content, suggestion);
-  return (
-    diff
-      // Remove header
-      .split(/={10,}/)
-      .slice(1)
-      .join('')
-      .split('\n')
-      .map((line) => {
-        switch (line[0]) {
-          case '+': {
-            return line.startsWith('+++') ? line : chalk.green(line);
-          }
-
-          case '-': {
-            return line.startsWith('---') ? line : chalk.red(line);
-          }
-
-          case '@': {
-            return chalk.cyan(line);
-          }
-
-          case '\\': {
-            return chalk.dim(line);
-          }
-
-          default: {
-            return line;
-          }
-        }
-      })
-      .join('\n')
-      .trim()
-  );
-}
-
 export async function interactiveFix(file: string, content: string, suggestion: string, options: FixOptions = {}) {
   console.info(`Changes suggested for ${chalk.cyan(file)}:\n${chalk.dim('---')}`);
   if (options.patchDiff) {
@@ -131,22 +78,4 @@ export async function interactiveFix(file: string, content: string, suggestion: 
   } else {
     debug(`Rejected fix for '${file}'`);
   }
-}
-
-export async function askForInput(question: string): Promise<string> {
-  return new Promise((resolve, _reject) => {
-    const read = createInterface({
-      input: process.stdin,
-      output: process.stdout
-    });
-    read.question(question, (answer) => {
-      read.close();
-      resolve(answer);
-    });
-  });
-}
-
-export async function askForConfirmation(question: string): Promise<boolean> {
-  const answer = await askForInput(`${question} [Y/n] `);
-  return answer.toLowerCase() !== 'n';
 }
