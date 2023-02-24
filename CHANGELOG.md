@@ -1,3 +1,5 @@
+## [0.3.3](https://github.com/sinedied/a11y-ai/compare/0.3.2...0.3.3) (2023-02-24)
+
 ## [0.3.2](https://github.com/sinedied/a11y-ai/compare/0.3.1...0.3.2) (2023-02-24)
 
 ## [0.3.1](https://github.com/sinedied/a11y-ai/compare/0.3.0...0.3.1) (2023-02-24)
