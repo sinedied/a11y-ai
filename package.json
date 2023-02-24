@@ -1,7 +1,7 @@
 {
   "name": "a11y-ai",
   "version": "0.2.2",
-  "description": "Experimental tool to automatically detect accessibility issues in web pages and provide suggestions for fixing them",
+  "description": "Experimental tool to automatically detect accessibility issues in web pages using OpenAI and provide suggestions for fixing them",
   "type": "module",
   "repository": {
     "type": "git",

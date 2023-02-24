@@ -6,7 +6,7 @@
 [![XO code style](https://img.shields.io/badge/code_style-XO-5ed9c7.svg)](https://github.com/sindresorhus/xo)
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 
-> Experimental tool to automatically detect accessibility issues in web pages and provide suggestions for fixing them.
+> Experimental tool to automatically detect accessibility issues in web pages using OpenAI and provide suggestions for fixing them.
 
 ![a11y-ai portrait by another AI](https://user-images.githubusercontent.com/593151/221144683-af658535-500b-4024-afe9-032526b3eec9.png)
 
