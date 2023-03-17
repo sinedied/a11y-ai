@@ -13,7 +13,7 @@ subdirectories for HTML files.
 
 Options:
   -f, --fix             Automatically apply fixes suggestions
-  -l, --patch-diff      Use patch-like diff instead of character diff
+  -c, --char-diff       Use character diff instead of patch-like diff
   -r, --report          Generate a report instead of fixing files
   -o, --format <format> Report format [html, md] (default: html)
   --verbose             Show detailed logs
@@ -23,10 +23,10 @@ Options:
 export async function run(args: string[]) {
   const options = minimist(args, {
     string: ['format'],
-    boolean: ['fix', 'verbose', 'version', 'help', 'patch-diff', 'report'],
+    boolean: ['fix', 'verbose', 'version', 'help', 'char-diff', 'report'],
     alias: {
       f: 'fix',
-      p: 'patch-diff',
+      c: 'char-diff',
       r: 'report',
       o: 'format',
       v: 'version'
@@ -67,7 +67,7 @@ export async function run(args: string[]) {
   } else {
     await fix(files, {
       interactive: !options.fix,
-      patchDiff: Boolean(options['patch-diff'])
+      patchDiff: !options['char-diff']
     });
   }
 }
