@@ -1,3 +1,10 @@
+# [0.4.0](https://github.com/sinedied/a11y-ai/compare/0.3.3...0.4.0) (2023-03-23)
+
+
+### Features
+
+* add scan command with axe integration ([ef03362](https://github.com/sinedied/a11y-ai/commit/ef03362b5e2bed485426d61644fb16aa10e0a67c))
+
 ## [0.3.3](https://github.com/sinedied/a11y-ai/compare/0.3.2...0.3.3) (2023-02-24)
 
 ## [0.3.2](https://github.com/sinedied/a11y-ai/compare/0.3.1...0.3.2) (2023-02-24)
