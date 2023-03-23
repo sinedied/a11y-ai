@@ -34,15 +34,18 @@
     "xo": "^0.53.1"
   },
   "dependencies": {
+    "@axe-core/cli": "^4.6.0",
     "ansi-to-html": "^0.7.2",
     "chalk": "^5.2.0",
+    "chromedriver": "^111.0.0",
     "debug": "^4.3.4",
     "diff": "^5.1.0",
     "fast-glob": "^3.2.12",
     "got": "^12.5.3",
     "jsdiff": "^1.1.1",
     "minimist": "^1.2.8",
-    "ora": "^6.1.2"
+    "ora": "^6.1.2",
+    "puppeteer": "^19.7.5"
   },
   "keywords": [
     "accessibility",

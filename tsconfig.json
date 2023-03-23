@@ -4,7 +4,7 @@
     "target": "es2020",
     "module": "esnext",
     "moduleResolution": "nodenext",
-    "lib": ["es2020"],
+    "lib": ["es2020", "dom"],
     "declaration": true,
     "outDir": "lib",
     "strict": true,

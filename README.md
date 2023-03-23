@@ -38,7 +38,7 @@ subdirectories for HTML files.
 
 Options:
   -f, --fix             Automatically apply fixes suggestions
-  -l, --patch-diff      Use patch-like diff instead of character diff
+  -c, --char-diff       Use character diff instead of patch-like diff
   -r, --report          Generate a report instead of fixing files
   -o, --format <format> Report format [html, md] (default: html)
   --verbose             Show detailed logs

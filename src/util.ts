@@ -3,6 +3,8 @@ import path, { dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import process from 'node:process';
 import fs from 'node:fs/promises';
+import { promisify } from 'node:util';
+import { exec } from 'node:child_process';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
@@ -37,4 +39,18 @@ export function escapeForHtml(unsafe: string) {
     .replace(/>/g, '&gt;')
     .replace(/"/g, '&quot;')
     .replace(/'/g, '&#039;');
+}
+
+export async function pathExists(path: string) {
+  try {
+    await fs.access(path);
+    return true;
+  } catch {
+    return false;
+  }
+}
+
+export async function runCommand(command: string): Promise<string> {
+  const result = await promisify(exec)(command);
+  return result.stdout.toString();
 }
