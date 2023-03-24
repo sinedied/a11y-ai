@@ -1,0 +1,716 @@
+<!DOCTYPE html><html class=" is-full  has-default-focus theme-light" lang="en-us" dir="ltr" data-css-variable-support="true" data-authenticated="false" data-auth-status-determined="false" data-target="docs" x-ms-format-detection="none">
+
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<meta property="og:title" content="JavaScript at Microsoft" />
+	<meta property="og:type" content="website" />
+	<meta property="og:url" content="https://developer.microsoft.com/en-us/javascript/index.html" /><meta property="og:description" content="Everything from Microsoft for JavaScript developers. Beginning resources, application development, and in production. Tools and learning content for JavaScript developers." /><meta property="og:image" content="https://docs.microsoft.com/en-us/media/logos/logo-ms-social.png" />
+
+	<meta property="og:image:alt" content="Microsoft Logo" />
+
+	<meta name="twitter:card" content="summary" />
+
+	<meta name="twitter:site" content="@docsmsft" />
+
+	<meta name="color-scheme" content="light dark"><meta name="author" content="sinedied" />
+<meta name="depot_name" content="devMSFT.dev" />
+<meta name="description" content="Everything from Microsoft for JavaScript developers. Beginning resources, application development, and in production. Tools and learning content for JavaScript developers." />
+<meta name="document_id" content="e68aa1dc-ff40-3646-2f61-d36879105f22" />
+<meta name="document_version_independent_id" content="e68aa1dc-ff40-3646-2f61-d36879105f22" />
+<meta name="gitcommit" content="https://github.com/MicrosoftDocs/devmsft/blob/e55d005e63b8ada1b78218f797dc12fdb0ae5349/dev/javascript/index.html.yml" />
+<meta name="locale" content="en-us" />
+<meta name="ms.author" content="yolasors" />
+<meta name="ms.contributors" content="aapowell-09102021" />
+<meta name="ms.custom" content="team=cloud_advocates" />
+<meta name="ms.date" content="20/01/2023" />
+<meta name="ms.service" content="azure" />
+<meta name="ms.topic" content="hub-page" />
+<meta name="original_content_git_url" content="https://github.com/MicrosoftDocs/devmsft/blob/live/dev/javascript/index.html.yml" />
+<meta name="page_type" content="marketing" />
+<meta name="schema" content="Marketing" />
+<meta name="services" content="azure" />
+<meta name="site_name" content="dev.microsoft.com" />
+<meta name="uhfHeaderId" content="DEV_Homeheader" />
+<meta name="updated_at" content="2023-01-25 01:52 AM" />
+<meta name="github_feedback_content_git_url" content="https://github.com/MicrosoftDocs/devmsft/blob/live/dev/javascript/index.html.yml" /><link href="https://developer.microsoft.com/en-us/javascript/index.html" rel="canonical"><title>JavaScript at Microsoft | Microsoft Developer</title><link rel="stylesheet" href="/static/assets/0.4.022182452/styles/site-ltr.css">
+
+	<script id="msdocs-script">
+	var msDocs = {environment: {
+			supportLevel: 'production',
+			accessLevel: 'online',
+			reviewFeatures: false,
+			systemContent: false,
+			azurePortalHostname: 'portal.azure.com',
+			legacyHosting: false,
+			siteName: 'developer',
+		},data: {
+			timeOrigin: Date.now(),
+			contentLocale: 'en-us',
+			contentDir: 'ltr',
+			userLocale: 'en-us',
+			userDir: 'ltr',
+			pageTemplate: 'Marketing',
+			brand: 'developer',
+			context: {},
+			hasBinaryRating: false,
+			hasGithubIssues: false,
+			standardFeedback: false,
+			showFeedbackReport: false,
+			enableTutorialFeedback: false,
+			feedbackSystem: 'None',
+			feedbackGitHubRepo: '',
+			feedbackProductUrl: '',extendBreadcrumb: false,isEditDisplayable: false,
+			hideViewSource: false,
+			hasPageActions: false,
+			hasPrintButton: false,
+			hasBookmark: false,
+			hasShare: true,
+			isPermissioned: false,
+			hasRecommendations: false,contributors: [{ name: "mairaw", url: "https://github.com/mairaw" },{ name: "jdanyow", url: "https://github.com/jdanyow" },{ name: "JennJin", url: "https://github.com/JennJin" },{ name: "homing1", url: "https://github.com/homing1" },{ name: "alexbuckgit", url: "https://github.com/alexbuckgit" }],},
+		functions:{}
+	};
+	</script><script src="https://wcpstatic.microsoft.com/mscc/lib/v2/wcp-consent.js"></script>
+	<script src="https://js.monitor.azure.com/scripts/c/ms.jsll-3.min.js"></script><script src="/static/assets/0.4.022182452/global/deprecation.js"></script><script src="/static/assets/0.4.022182452/scripts/en-us/index-docs.js"></script></head>
+
+<body lang="en-us" dir="ltr">
+	<div class="header-holder has-default-focus">
+		<a href="#main" class="skip-to-main-link has-outline-color-text visually-hidden-until-focused position-fixed has-inner-focus focus-visible top-0 left-0 right-0 padding-xs has-text-centered has-body-background" tabindex="1">Skip to main content</a>
+
+		<div hidden id="cookie-consent-holder"></div>
+
+		<div id="unsupported-browser" style="
+			background-color: white;
+			color: black;
+			padding: 16px;
+			border-bottom: 1px solid grey;"
+			hidden
+		>
+			<div style="max-width: 800px; margin: 0 auto;">
+				<p style="font-size: 24px">This browser is no longer supported.</p>
+				<p style="font-size: 16px; margin-top: 16px;">Upgrade to Microsoft Edge to take advantage of the latest features, security updates, and technical support.</p>
+				<div style="margin-top: 12px;">
+					<a href="https://go.microsoft.com/fwlink/p/?LinkID=2092881 "
+						style="
+						background-color: #0078d4;
+						border: 1px solid #0078d4;
+						color: white;
+						padding: 6px 12px;
+						border-radius: 2px;
+						display: inline-block;
+						">Download Microsoft Edge</a>
+					<a href="https://learn.microsoft.com/en-us/lifecycle/faq/internet-explorer-microsoft-edge"
+						style="
+							background-color: white;
+							padding: 6px 12px;
+							border: 1px solid #505050;
+							color: #171717;
+							border-radius: 2px;
+							display: inline-block;
+							">More info about Internet Explorer and Microsoft Edge</a>
+				</div>
+			</div>
+
+		</div><div id="headerAreaHolder" data-bi-name="header">
+<header role="banner" itemscope="itemscope" itemtype="http://schema.org/Organization">
+	<div class="nav-bar">
+		<div class="nav-bar-brand">
+			<a itemprop="url" href="https://www.microsoft.com" aria-label="Microsoft" class="nav-bar-button">
+				<div class="nav-bar-logo has-background-image theme-display is-light" role="presentation" aria-hidden="true" itemprop="logo" itemscope="itemscope"></div>
+				<div class="nav-bar-logo has-background-image theme-display is-dark is-high-contrast" role="presentation" aria-hidden="true" itemprop="logo" itemscope="itemscope"></div>
+			</a>
+		</div>
+	</div>
+	<div class="is-hidden"></div>
+</header>
+		</div><div id="disclaimer-holder" class="has-overflow-hidden has-default-focus"></div>
+	</div>
+
+	<div class="mainContainer  uhf-container is-full  has-default-focus" data-bi-name="body">
+
+		<div class="columns has-large-gaps is-gapless-mobile  is-gapless"><!-- .primary-holder -->
+			<section class="primary-holder column ">
+				<!--div.columns -->
+				<div class="columns is-gapless-mobile has-large-gaps  is-gapless"><div id="main-column" class="column ">
+
+						<main id="main" role="main" data-bi-name="content" lang="en-us" dir="ltr"><div class="">
+								<button type="button" class="border contents-button button button-clear button-sm is-hidden-tablet has-inner-focus" aria-label="Contents" data-bi-name="contents-expand" data-contents-button hidden>
+									<span class="icon">
+										<span class="docon docon-editor-list-bullet" aria-hidden="true"></span>
+									</span><span class="contents-expand-title">Table of contents</span></button>
+							</div><!-- end mobile-contents button  -->
+
+							<div class=""><!-- <content> --><div id="Marketing" class="has-overflow-hidden">
+<div id="hero-section-0" class="hero is-small has-linear-gradient-background-javascript color-black-static ">
+		<div class="hero-background ">
+				<img src="media/js-banner-green.png" aria-hidden="true" data-linktype="relative-path">
+		</div>
+	<div class="hero-body">
+			
+				<div class="is-reading-width has-backdrop-filter-blur">
+						<p class="supertitle is-spaced font-size-sm letter-spacing-wide is-uppercase">Developer hub</p>
+
+		<h1 id="javascript-at-microsoft" class="title is-size-jumbo-responsive">JavaScript at Microsoft</h1>
+
+
+						<p class="font-size-md margin-top-lg is-reading-width">Everything from Microsoft for JavaScript developers</p>
+
+				</div>
+			
+	</div>
+</div>
+<div id="hero-section-1" class="hero is-small has-linear-gradient-background-javascript has-text-javascript-invert uhf-container padding-inline-none margin-block-md border-radius-lg has-overflow-hidden">
+		<div class="hero-background ">
+				<img src="media/serverless-banner.jpg" aria-hidden="true" data-linktype="relative-path">
+		</div>
+	<div class="hero-body padding-inline-md padding-inline-lg-tablet">
+			
+				<div class="is-reading-width has-backdrop-filter-blur">
+
+		<h2 id="join-us-for-cloud-native-new-year" class="title is-2 is-responsive">Join us for Cloud-native New Year!</h2>
+
+
+						<p class="font-size-md margin-top-lg is-reading-width">Celebrate this New Year skilling-up on cloud-native technologies with Azure Kubernetes Service, Azure Container Apps, and Azure Functions.</p>
+
+	<div class="buttons margin-top-md">
+			<a href="https://aka.ms/CNNY" class="button button-clear border" data-linktype="external">Learn more</a>
+	</div>
+				</div>
+			
+	</div>
+</div>
+<div id="cards-section-2" class="padding-block-lg">
+	<div class="uhf-container">
+		<ul class="grid is-fibonacci">
+				<li class="grid-item">
+	<article class="media-card border-radius-lg  " data-bi-name="card">
+					<figure class="media-card-image">
+						<img src="media/banner-1.jpg" alt="" data-linktype="relative-path">
+					</figure>
+		<div class="media-card-content">
+			<div class="media-card-content-titles">
+						<h2 id="code">Code</h2>
+			</div>
+			<div class="display-flex flex-direction-column justify-content-space-between flex-grow-1">
+					<p class="margin-bottom-xs flex-grow-1">
+						Whether it's local or in the cloud, we have the tools to help you code and debug your applications, wherever you are.
+					</p>
+					<a href="https://code.visualstudio.com/" data-linktype="external">Visual Studio Code</a>
+					<a href="https://github.com/features/codespaces" data-linktype="external">GitHub Codespaces</a>
+					<a href="https://www.youtube.com/watch?v=l39cjaosxKw&amp;list=PLlrxD0HtieHgMPeBaDQFx9yNuFxx6S1VG&amp;index=19" data-linktype="external">Video: Debugging your Web Apps in VS Code</a>
+			</div>
+		</div>
+	</article>
+				</li>
+				<li class="grid-item">
+	<article class="media-card border-radius-lg  " data-bi-name="card">
+					<figure class="media-card-image">
+						<img src="media/banner-2.jpg" alt="" data-linktype="relative-path">
+					</figure>
+		<div class="media-card-content">
+			<div class="media-card-content-titles">
+						<h2 id="accelerate">Accelerate</h2>
+			</div>
+			<div class="display-flex flex-direction-column justify-content-space-between flex-grow-1">
+					<p class="margin-bottom-xs flex-grow-1">
+						Build faster and more efficiently with the tools and frameworks that help you get the most out of your code.
+					</p>
+					<a href="https://www.typescriptlang.org/" data-linktype="external">TypeScript: JavaScript that scales</a>
+					<a href="https://www.fast.design/" data-linktype="external">Fast: an Adaptive Design System for the Web</a>
+					<a href="https://learn.microsoft.com/azure/developer/javascript/azure-sdk-library-package-index?WT.mc_id=javascript-29163-cxa" data-linktype="external">Azure SDKs for JavaScript</a>
+			</div>
+		</div>
+	</article>
+				</li>
+				<li class="grid-item">
+	<article class="media-card border-radius-lg  " data-bi-name="card">
+					<figure class="media-card-image">
+						<img src="media/banner-3.jpg" alt="" data-linktype="relative-path">
+					</figure>
+		<div class="media-card-content">
+			<div class="media-card-content-titles">
+						<h2 id="test">Test</h2>
+			</div>
+			<div class="display-flex flex-direction-column justify-content-space-between flex-grow-1">
+					<p class="margin-bottom-xs flex-grow-1">
+						Test your code and make sure it's working as expected. We have tools to help you test your code at every stage of development.
+					</p>
+					<a href="/en-us/microsoft-edge/?WT.mc_id=javascript-29163-cxa" data-linktype="absolute-path">Develop with Edge web browser</a>
+					<a href="https://www.youtube.com/watch?v=SW3TqvhrzU4&amp;list=PLQ6Buerc008dhme8fC80zmhohqpkA0aXI" data-linktype="external">Video series: End-to-end testing with Playwright</a>
+					<a href="https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-nodejs" data-linktype="external">Setup continuous integration with GitHub Actions</a>
+			</div>
+		</div>
+	</article>
+				</li>
+				<li class="grid-item">
+	<article class="media-card border-radius-lg  " data-bi-name="card">
+					<figure class="media-card-image">
+						<img src="media/banner-4.jpg" alt="" data-linktype="relative-path">
+					</figure>
+		<div class="media-card-content">
+			<div class="media-card-content-titles">
+						<h2 id="run">Run</h2>
+			</div>
+			<div class="display-flex flex-direction-column justify-content-space-between flex-grow-1">
+					<p class="margin-bottom-xs flex-grow-1">
+						Deploy your code to the cloud and run it in production, your way.
+					</p>
+					<a href="https://www.youtube.com/watch?v=w-tLZjO6XMc&amp;list=PLlrxD0HtieHgMPeBaDQFx9yNuFxx6S1VG&amp;index=1" data-linktype="external">Video series: Azure Static Web Apps</a>
+					<a href="https://learn.microsoft.com/azure/container-apps/overview?WT.mc_id=javascript-29163-cxa" data-linktype="external">Azure Container Apps</a>
+					<a href="https://learn.microsoft.com/azure/cosmos-db/nosql/quickstart-nodejs?tabs=azure-cli%2Clinux&amp;WT.mc_id=javascript-29163-cxa" data-linktype="external">Tutorial: Use Node.js to connect and query data from Azure Cosmos DB</a>
+			</div>
+		</div>
+	</article>
+				</li>
+		</ul>
+	</div>
+</div>
+<div id="markdown-section-3" class="padding-block-sm">
+	<div class="uhf-container padding-top-sm">
+		<div class="content">
+			<h2 id="view-our-featured-javascript-videos">View our featured JavaScript videos</h2>
+
+		</div>
+	</div>
+</div>
+<div id="cards-section-4" class="padding-block-lg">
+	<div class="uhf-container">
+		<ul class="grid ">
+				<li class="grid-item">
+	<article class="media-card border-radius-lg  " data-bi-name="card">
+					<figure class="media-card-image">
+						<img src="media/vid-aysegul.jpg" alt="" data-linktype="relative-path">
+					</figure>
+		<div class="media-card-content">
+			<div class="media-card-content-titles">
+						<h2 id="real-time-translation-with-azure-cognitive-services">Real time translation with Azure Cognitive Services</h2>
+			</div>
+			<div class="display-flex flex-direction-column justify-content-space-between flex-grow-1">
+					<p class="margin-bottom-xs flex-grow-1">
+						Ayşegül Yönet demonstrates how to translate speech in multiple languages in real time using Azure Cognitive Services locally on your machine.
+					</p>
+					<a href="https://youtu.be/-FAPred8j_g" data-linktype="external">Watch video ›</a>
+			</div>
+		</div>
+	</article>
+				</li>
+				<li class="grid-item">
+	<article class="media-card border-radius-lg  " data-bi-name="card">
+					<figure class="media-card-image">
+						<img src="media/vid-glaucia.jpg" alt="" data-linktype="relative-path">
+					</figure>
+		<div class="media-card-content">
+			<div class="media-card-content-titles">
+						<h2 id="full-stack-application-with-azure-sql-and-prisma">Full Stack Application with Azure SQL and Prisma</h2>
+			</div>
+			<div class="display-flex flex-direction-column justify-content-space-between flex-grow-1">
+					<p class="margin-bottom-xs flex-grow-1">
+						Glaucia Lemos demonstrates how to create a scalable, resilient and robust Full Stack application using Node.Js, Prisma, Azure SQL and Azure Functions.
+					</p>
+					<a href="https://learn.microsoft.com/shows/beginners-series-to-learn-a-full-stack-application-with-azure-sql-prisma/?WT.mc_id=javascript-29163-cxa" data-linktype="external">Watch video series ›</a>
+			</div>
+		</div>
+	</article>
+				</li>
+				<li class="grid-item">
+	<article class="media-card border-radius-lg  " data-bi-name="card">
+					<figure class="media-card-image">
+						<img src="media/vid-natalia.jpg" alt="" data-linktype="relative-path">
+					</figure>
+		<div class="media-card-content">
+			<div class="media-card-content-titles">
+						<h2 id="next-js-and-azure-static-web-apps">Next.js and Azure Static Web Apps</h2>
+			</div>
+			<div class="display-flex flex-direction-column justify-content-space-between flex-grow-1">
+					<p class="margin-bottom-xs flex-grow-1">
+						Natalia Venditto shares how you can make your web apps blazing fast with Next.js and Azure Static Web Apps.
+					</p>
+					<a href="https://www.youtube.com/watch?v=w6uH1CZEhcg&amp;list=PLlrxD0HtieHgMPeBaDQFx9yNuFxx6S1VG&amp;index=20" data-linktype="external">Watch video ›</a>
+			</div>
+		</div>
+	</article>
+				</li>
+		</ul>
+	</div>
+</div>
+<div id="grid-section-5" class="padding-block-md">
+	<div class="uhf-container">
+		<h2 id="learning-resources" class="title is-2 is-responsive">Learning resources</h2>
+		<ul class="grid is-fibonacci">
+				<li class="grid-item">
+<article class="media-card border-radius-lg position-relative" data-bi-name="summary-card">
+	<div class="media-card-content">
+		<h3 id="video-series-beginners-series-to-javascript" class="title font-size-h6 margin-bottom-none">
+			<a href="https://learn.microsoft.com/shows/beginners-series-to-javascript/?wt.mc_id=javascript-29163-cxa" class="stretched-link" data-linktype="external">Video series: Beginner's series to JavaScript</a>
+		</h3>
+			<p class="margin-top-none color-text-subtle font-size-sm has-line-height-reset line-clamp-3">
+				Learn the fundamentals of the JavaScript langage.
+			</p>
+	</div>
+</article>
+				</li>
+				<li class="grid-item">
+<article class="media-card border-radius-lg position-relative" data-bi-name="summary-card">
+	<div class="media-card-content">
+		<h3 id="video-series-beginners-series-to-node-js" class="title font-size-h6 margin-bottom-none">
+			<a href="https://learn.microsoft.com/shows/beginners-series-to-nodejs/?wt.mc_id=javascript-29163-cxa" class="stretched-link" data-linktype="external">Video series: Beginner's series to Node.js</a>
+		</h3>
+			<p class="margin-top-none color-text-subtle font-size-sm has-line-height-reset line-clamp-3">
+				Discover the fundamentals of Node.js and how to use it to build applications.
+			</p>
+	</div>
+</article>
+				</li>
+				<li class="grid-item">
+<article class="media-card border-radius-lg position-relative" data-bi-name="summary-card">
+	<div class="media-card-content">
+		<h3 id="tutorial-build-applications-with-node-js" class="title font-size-h6 margin-bottom-none">
+			<a href="https://learn.microsoft.com/training/paths/build-javascript-applications-nodejs/?WT.mc_id=javascript-29163-cxa" class="stretched-link" data-linktype="external">Tutorial: Build applications With Node.js</a>
+		</h3>
+			<p class="margin-top-none color-text-subtle font-size-sm has-line-height-reset line-clamp-3">
+				A complete training path to learn how to create Node.js applications.
+			</p>
+	</div>
+</article>
+				</li>
+				<li class="grid-item">
+<article class="media-card border-radius-lg position-relative" data-bi-name="summary-card">
+	<div class="media-card-content">
+		<h3 id="tutorial-deploy-and-host-your-node-js-app-on-azure" class="title font-size-h6 margin-bottom-none">
+			<a href="https://learn.microsoft.com/azure/developer/javascript/how-to/deploy-web-app?WT.mc_id=javascript-29163-cxa&amp;WT.mc_id=javascript-29163-cxa" class="stretched-link" data-linktype="external">Tutorial: Deploy and Host your Node.js app on Azure</a>
+		</h3>
+			<p class="margin-top-none color-text-subtle font-size-sm has-line-height-reset line-clamp-3">
+				Deploy your first Node.js application in a few steps.
+			</p>
+	</div>
+</article>
+				</li>
+		</ul>
+			<p class="margin-top-xs">Get more content with Microsoft.Source, our curated monthly developer community newsletter. <a href="https://azure.microsoft.com/resources/join-the-azure-developer-community/?WT.mc_id=javascript-29163-cxa" class="font-weight-semibold" data-linktype="external">Sign up here!</a></p>
+	</div>
+</div>
+<div id="grid-section-6" class="padding-block-md">
+	<div class="uhf-container">
+		<h2 id="tools-for-javascript-developers" class="title is-2 is-responsive">Tools for JavaScript developers</h2>
+		<ul class="grid is-fibonacci">
+				<li class="grid-item">
+<article class="box border-radius-lg position-relative" data-bi-name="icon-card">
+	<div class="media">
+			<div class="media-left">
+<figure class="image is-64x64 ">
+	<img src="media/vscode.png" alt="" aria-hidden="true" data-linktype="relative-path">
+</figure>			</div>
+		<div class="media-content">
+			<h3 id="visual-studio-code" class="title font-size-h6 margin-bottom-none">
+				<a href="https://code.visualstudio.com/" class="stretched-link" data-linktype="external">Visual Studio Code</a>
+			</h3>
+				<p class="margin-top-none color-text-subtle font-size-sm has-line-height-reset line-clamp-3">
+					The most popular code editor for JavaScript developers
+				</p>
+		</div>
+	</div>
+</article>
+				</li>
+				<li class="grid-item">
+<article class="box border-radius-lg position-relative" data-bi-name="icon-card">
+	<div class="media">
+			<div class="media-left">
+<figure class="image is-64x64 ">
+	<img src="media/typescript.png" alt="" aria-hidden="true" data-linktype="relative-path">
+</figure>			</div>
+		<div class="media-content">
+			<h3 id="typescript" class="title font-size-h6 margin-bottom-none">
+				<a href="https://www.typescriptlang.org/" class="stretched-link" data-linktype="external">TypeScript</a>
+			</h3>
+				<p class="margin-top-none color-text-subtle font-size-sm has-line-height-reset line-clamp-3">
+					Typesafe JavaScript
+				</p>
+		</div>
+	</div>
+</article>
+				</li>
+				<li class="grid-item">
+<article class="box border-radius-lg position-relative" data-bi-name="icon-card">
+	<div class="media">
+			<div class="media-left">
+<figure class="image is-64x64 ">
+	<img src="media/static-web-apps.png" alt="" aria-hidden="true" data-linktype="relative-path">
+</figure>			</div>
+		<div class="media-content">
+			<h3 id="azure-static-web-apps" class="title font-size-h6 margin-bottom-none">
+				<a href="https://learn.microsoft.com/azure/static-web-apps/overview?WT.mc_id=javascript-29163-cxa" class="stretched-link" data-linktype="external">Azure Static Web Apps</a>
+			</h3>
+				<p class="margin-top-none color-text-subtle font-size-sm has-line-height-reset line-clamp-3">
+					Deploy your web app and serverless API in minutes
+				</p>
+		</div>
+	</div>
+</article>
+				</li>
+				<li class="grid-item">
+<article class="box border-radius-lg position-relative" data-bi-name="icon-card">
+	<div class="media">
+			<div class="media-left">
+<figure class="image is-64x64 ">
+	<img src="media/playwright.png" alt="" aria-hidden="true" data-linktype="relative-path">
+</figure>			</div>
+		<div class="media-content">
+			<h3 id="playwright" class="title font-size-h6 margin-bottom-none">
+				<a href="https://playwright.dev/docs/intro/" class="stretched-link" data-linktype="external">Playwright</a>
+			</h3>
+				<p class="margin-top-none color-text-subtle font-size-sm has-line-height-reset line-clamp-3">
+					Automated end-to-end testing across Chromium, Firefox and WebKit with a single API
+				</p>
+		</div>
+	</div>
+</article>
+				</li>
+		</ul>
+	</div>
+</div>
+<div id="hero-section-7" class="hero is-small has-linear-gradient-background-javascript has-text-javascript-invert uhf-container padding-inline-none margin-block-md border-radius-lg has-overflow-hidden">
+		<div class="hero-background ">
+				<img src="media/hub-banner-blue.jpg" aria-hidden="true" data-linktype="relative-path">
+		</div>
+	<div class="hero-body padding-inline-md padding-inline-lg-tablet">
+			
+				<div class="is-reading-width has-backdrop-filter-blur">
+						<p class="supertitle is-spaced font-size-sm letter-spacing-wide is-uppercase">More development resources</p>
+
+		<h2 id="azure-for-javascript-developers" class="title is-2 is-responsive">Azure for JavaScript developers</h2>
+
+
+						<p class="font-size-md margin-top-lg is-reading-width">Explore the power of JavaScript on Azure through Quickstarts, How-To Guides, codes samples and more.</p>
+
+	<div class="buttons margin-top-md">
+			<a href="https://learn.microsoft.com/azure/developer/javascript/?WT.mc_id=javascript-29163-cxa" class="button button-clear border" data-linktype="external">Explore ›</a>
+	</div>
+				</div>
+			
+	</div>
+</div>
+</div>
+</div>
+
+							<div id="assertive-live-region" role="alert" aria-live="assertive" class="visually-hidden" aria-relevant="additions" aria-atomic="true"></div>
+							<div id="polite-live-region" role="status" aria-live="polite" class="visually-hidden" aria-relevant="additions" aria-atomic="true"></div>
+							<!-- </content> -->
+
+						</main><!-- recommendations section --><!-- end recommendations section -->
+
+						<!-- feedback section --><!-- end feedback section -->
+
+						<!-- feedback report section --><!-- end feedback report section --><div class="border-top is-visible-interactive has-default-focus margin-top-sm  margin-top-none"><footer id="footer-interactive" data-bi-name="footer" class="footer-layout"><div class="display-flex is-full-height padding-right-lg-desktop"><a
+				data-mscc-ic="false"
+				class="locale-selector-link button button-clear flex-shrink-0"
+				href="#"
+				data-bi-name="select-locale">
+					<span class="icon" aria-hidden="true">
+						<span class="docon docon-world"></span>
+					</span>
+					<span class="local-selector-link-text"></span></a><div class="margin-inline-xs flex-shrink-0">
+<div class="dropdown has-caret-up">
+	<button class="dropdown-trigger button button-clear button-sm has-inner-focus theme-dropdown-trigger"
+		aria-controls="theme-menu-interactive" aria-expanded="false" title="Theme" data-bi-name="theme">
+		<span class="icon">
+			<span class="docon docon-sun" aria-hidden="true"></span>
+		</span>
+		<span>Theme</span>
+	</button>
+	<div class="dropdown-menu" id="theme-menu-interactive" role="menu">
+		<ul class="theme-selector padding-xxs" role="none">
+			<li class="theme display-block" role="menuitem">
+				<button class="button button-clear button-sm theme-control button-block justify-content-flex-start"
+					data-theme-to="light">
+					<span class="theme-light margin-right-xxs">
+						<span
+							class="theme-selector-icon css-variable-support border display-inline-block has-body-background"
+							aria-hidden="true">
+							<svg class="svg" xmlns="http://www.w3.org/2000/svg"
+								viewBox="0 0 22 14">
+								<rect width="22" height="14" class="has-fill-body-background" />
+								<rect x="5" y="5" width="12" height="4" class="has-fill-secondary" />
+								<rect x="5" y="2" width="2" height="1" class="has-fill-secondary" />
+								<rect x="8" y="2" width="2" height="1" class="has-fill-secondary" />
+								<rect x="11" y="2" width="3" height="1" class="has-fill-secondary" />
+								<rect x="1" y="1" width="2" height="2" class="has-fill-secondary" />
+								<rect x="5" y="10" width="7" height="2" rx="0.3" class="has-fill-primary" />
+								<rect x="19" y="1" width="2" height="2" rx="1" class="has-fill-secondary" />
+							</svg>
+						</span>
+					</span>
+					<span>Light</span>
+				</button>
+			</li>
+			<li class="theme display-block" role="menuitem">
+				<button class="button button-clear button-sm theme-control button-block justify-content-flex-start"
+					data-theme-to="dark">
+					<span class="theme-dark margin-right-xxs">
+						<span
+							class="border theme-selector-icon css-variable-support display-inline-block has-body-background"
+							aria-hidden="true">
+							<svg class="svg" xmlns="http://www.w3.org/2000/svg"
+								viewBox="0 0 22 14">
+								<rect width="22" height="14" class="has-fill-body-background" />
+								<rect x="5" y="5" width="12" height="4" class="has-fill-secondary" />
+								<rect x="5" y="2" width="2" height="1" class="has-fill-secondary" />
+								<rect x="8" y="2" width="2" height="1" class="has-fill-secondary" />
+								<rect x="11" y="2" width="3" height="1" class="has-fill-secondary" />
+								<rect x="1" y="1" width="2" height="2" class="has-fill-secondary" />
+								<rect x="5" y="10" width="7" height="2" rx="0.3" class="has-fill-primary" />
+								<rect x="19" y="1" width="2" height="2" rx="1" class="has-fill-secondary" />
+							</svg>
+						</span>
+					</span>
+					<span>Dark</span>
+				</button>
+			</li>
+			<li class="theme display-block" role="menuitem">
+				<button class="button button-clear button-sm theme-control button-block justify-content-flex-start"
+					data-theme-to="high-contrast">
+					<span class="theme-high-contrast margin-right-xxs">
+						<span
+							class="border theme-selector-icon css-variable-support display-inline-block has-body-background"
+							aria-hidden="true">
+							<svg class="svg" xmlns="http://www.w3.org/2000/svg"
+								viewBox="0 0 22 14">
+								<rect width="22" height="14" class="has-fill-body-background" />
+								<rect x="5" y="5" width="12" height="4" class="has-fill-secondary" />
+								<rect x="5" y="2" width="2" height="1" class="has-fill-secondary" />
+								<rect x="8" y="2" width="2" height="1" class="has-fill-secondary" />
+								<rect x="11" y="2" width="3" height="1" class="has-fill-secondary" />
+								<rect x="1" y="1" width="2" height="2" class="has-fill-secondary" />
+								<rect x="5" y="10" width="7" height="2" rx="0.3" class="has-fill-primary" />
+								<rect x="19" y="1" width="2" height="2" rx="1" class="has-fill-secondary" />
+							</svg>
+						</span>
+					</span>
+					<span>High contrast</span>
+				</button>
+			</li>
+		</ul>
+	</div>
+</div>
+
+		</div>
+	</div>
+	<ul class="links" data-bi-name="footerlinks">
+		<li class="manage-cookies-holder" hidden></li><li><a data-mscc-ic="false" href="https://go.microsoft.com/fwlink/?LinkId=521839" data-bi-name="privacy">Privacy</a></li><li><a data-mscc-ic="false" href="https://go.microsoft.com/fwlink/?LinkID=206977" data-bi-name="termsofuse">Terms of Use</a></li><li><a data-mscc-ic="false" href="https://www.microsoft.com/en-us/legal/intellectualproperty/Trademarks/EN-US.aspx" data-bi-name="trademarks">Trademarks</a></li><li>&copy; Microsoft 2023</li>
+	</ul>
+</footer></div></div></div>
+				<!--end of div.columns -->
+
+			</section>
+			<!--end of .primary-holder -->
+
+			<!-- interactive container -->
+			<aside id="interactive-container" class="interactive-container is-visible-interactive column has-body-background-dark ">
+			</aside>
+			<!-- end of interactive container -->
+		</div>
+
+	</div>
+	<!--end of .mainContainer -->
+
+	<section class="border-top has-default-focus is-hidden-interactive margin-top-sm  margin-top-none"><footer id="footer" data-bi-name="footer" class="footer-layout uhf-container has-padding" role="contentinfo"><div class="display-flex is-full-height padding-right-lg-desktop"><a
+				data-mscc-ic="false"
+				class="locale-selector-link button button-clear flex-shrink-0"
+				href="#"
+				data-bi-name="select-locale">
+					<span class="icon" aria-hidden="true">
+						<span class="docon docon-world"></span>
+					</span>
+					<span class="local-selector-link-text"></span></a><div class="margin-inline-xs flex-shrink-0">
+<div class="dropdown has-caret-up">
+	<button class="dropdown-trigger button button-clear button-sm has-inner-focus theme-dropdown-trigger"
+		aria-controls="theme-menu" aria-expanded="false" title="Theme" data-bi-name="theme">
+		<span class="icon">
+			<span class="docon docon-sun" aria-hidden="true"></span>
+		</span>
+		<span>Theme</span>
+	</button>
+	<div class="dropdown-menu" id="theme-menu" role="menu">
+		<ul class="theme-selector padding-xxs" role="none">
+			<li class="theme display-block" role="menuitem">
+				<button class="button button-clear button-sm theme-control button-block justify-content-flex-start"
+					data-theme-to="light">
+					<span class="theme-light margin-right-xxs">
+						<span
+							class="theme-selector-icon css-variable-support border display-inline-block has-body-background"
+							aria-hidden="true">
+							<svg class="svg" xmlns="http://www.w3.org/2000/svg"
+								viewBox="0 0 22 14">
+								<rect width="22" height="14" class="has-fill-body-background" />
+								<rect x="5" y="5" width="12" height="4" class="has-fill-secondary" />
+								<rect x="5" y="2" width="2" height="1" class="has-fill-secondary" />
+								<rect x="8" y="2" width="2" height="1" class="has-fill-secondary" />
+								<rect x="11" y="2" width="3" height="1" class="has-fill-secondary" />
+								<rect x="1" y="1" width="2" height="2" class="has-fill-secondary" />
+								<rect x="5" y="10" width="7" height="2" rx="0.3" class="has-fill-primary" />
+								<rect x="19" y="1" width="2" height="2" rx="1" class="has-fill-secondary" />
+							</svg>
+						</span>
+					</span>
+					<span>Light</span>
+				</button>
+			</li>
+			<li class="theme display-block" role="menuitem">
+				<button class="button button-clear button-sm theme-control button-block justify-content-flex-start"
+					data-theme-to="dark">
+					<span class="theme-dark margin-right-xxs">
+						<span
+							class="border theme-selector-icon css-variable-support display-inline-block has-body-background"
+							aria-hidden="true">
+							<svg class="svg" xmlns="http://www.w3.org/2000/svg"
+								viewBox="0 0 22 14">
+								<rect width="22" height="14" class="has-fill-body-background" />
+								<rect x="5" y="5" width="12" height="4" class="has-fill-secondary" />
+								<rect x="5" y="2" width="2" height="1" class="has-fill-secondary" />
+								<rect x="8" y="2" width="2" height="1" class="has-fill-secondary" />
+								<rect x="11" y="2" width="3" height="1" class="has-fill-secondary" />
+								<rect x="1" y="1" width="2" height="2" class="has-fill-secondary" />
+								<rect x="5" y="10" width="7" height="2" rx="0.3" class="has-fill-primary" />
+								<rect x="19" y="1" width="2" height="2" rx="1" class="has-fill-secondary" />
+							</svg>
+						</span>
+					</span>
+					<span>Dark</span>
+				</button>
+			</li>
+			<li class="theme display-block" role="menuitem">
+				<button class="button button-clear button-sm theme-control button-block justify-content-flex-start"
+					data-theme-to="high-contrast">
+					<span class="theme-high-contrast margin-right-xxs">
+						<span
+							class="border theme-selector-icon css-variable-support display-inline-block has-body-background"
+							aria-hidden="true">
+							<svg class="svg" xmlns="http://www.w3.org/2000/svg"
+								viewBox="0 0 22 14">
+								<rect width="22" height="14" class="has-fill-body-background" />
+								<rect x="5" y="5" width="12" height="4" class="has-fill-secondary" />
+								<rect x="5" y="2" width="2" height="1" class="has-fill-secondary" />
+								<rect x="8" y="2" width="2" height="1" class="has-fill-secondary" />
+								<rect x="11" y="2" width="3" height="1" class="has-fill-secondary" />
+								<rect x="1" y="1" width="2" height="2" class="has-fill-secondary" />
+								<rect x="5" y="10" width="7" height="2" rx="0.3" class="has-fill-primary" />
+								<rect x="19" y="1" width="2" height="2" rx="1" class="has-fill-secondary" />
+							</svg>
+						</span>
+					</span>
+					<span>High contrast</span>
+				</button>
+			</li>
+		</ul>
+	</div>
+</div>
+
+		</div>
+	</div>
+	<ul class="links" data-bi-name="footerlinks">
+		<li class="manage-cookies-holder" hidden></li><li><a data-mscc-ic="false" href="https://go.microsoft.com/fwlink/?LinkId=521839" data-bi-name="privacy">Privacy</a></li><li><a data-mscc-ic="false" href="https://go.microsoft.com/fwlink/?LinkID=206977" data-bi-name="termsofuse">Terms of Use</a></li><li><a data-mscc-ic="false" href="https://www.microsoft.com/en-us/legal/intellectualproperty/Trademarks/EN-US.aspx" data-bi-name="trademarks">Trademarks</a></li><li>&copy; Microsoft 2023</li>
+	</ul>
+</footer>
+
+	</section><div id="action-panel" role="region" aria-label="Action Panel" class="action-panel has-default-focus" tabindex="-1"></div>
+</body>
+</html>
