@@ -9,6 +9,7 @@ import { generatePatchDiff } from '../diff.js';
 import { suggestFix } from '../ai.js';
 import { getPackageJson, escapeForHtml } from '../util.js';
 import { reportOutputFilename } from '../constants.js';
+import { scanIssues } from '../axe.js';
 
 const debug = createDebug('report');
 
@@ -18,6 +19,7 @@ export type ReportOptions = {
 
 export type FileReport = {
   file: string;
+  issues: string[];
   suggestion?: string;
   patch?: string;
   rawPatch?: string;
@@ -82,12 +84,24 @@ export async function generateHtmlReport(reports: FileReport[]) {
   for (const report of reports) {
     if (report.suggestion !== undefined && report.patch !== undefined) {
       html += `<hr>`;
-      html += `<h3>Suggested fixes for <code>${report.file}</code></h3>`;
-      html += '<details><summary>Raw suggestion</summary>';
-      html += `<pre><textarea rows="5" style="width:100%">${escapeForHtml(
-        report.suggestion
-      )}</textarea></pre></details>`;
-      html += `<p><pre>${ansiToHtml.toHtml(escapeForHtml(report.patch))}</pre></p>`;
+      html += `<h3>Report for <code>${report.file}</code></h3>`;
+      html += `<h4>Issues</h4>`;
+      
+      if (report.issues.length === 0) {
+        html += '<p>No issues found</p>';
+      } else {
+        html += '<ul>';
+        for (const issue of report.issues) {
+          html += `<li>${escapeForHtml(issue)}</li>`;
+        }
+        html += '</ul>';
+        html += `<h4>Suggested fixes</h4>`;
+        html += '<details><summary>Raw suggestion</summary>';
+        html += `<pre><textarea rows="5" style="width:100%">${escapeForHtml(
+          report.suggestion
+        )}</textarea></pre></details>`;
+        html += `<p><pre>${ansiToHtml.toHtml(escapeForHtml(report.patch))}</pre></p>`;
+      }
     }
   }
 
@@ -104,12 +118,21 @@ export async function generateMarkdownReport(reports: FileReport[]) {
   for (const report of reports) {
     if (report.suggestion !== undefined && report.rawPatch !== undefined) {
       md += `---\n\n`;
-      md += `### Suggested fixes for \`${report.file}\`\n\n`;
-      md += '<details><summary>Raw suggestion</summary>';
-      md += `<pre><textarea rows="5" style="width:100%">${escapeForHtml(
-        report.suggestion
-      )}</textarea></pre></details>\n\n`;
-      md += `\`\`\`diff\n${report.rawPatch}\n\`\`\`\n\n`;
+      md += `### Report for \`${report.file}\`\n\n`;
+      md += `#### Issues\n\n`;
+
+      if (report.issues.length === 0) {
+        md += 'No issues found\n\n';
+      } else {
+        md += report.issues.map((issue) => `- ${escapeForHtml(issue)}`).join('\n');
+        md += '\n\n';
+        md += `#### Suggested fixes for \`${report.file}\`\n\n`;
+        md += '<details><summary>Raw suggestion</summary>';
+        md += `<pre><textarea rows="5" style="width:100%">${escapeForHtml(
+          report.suggestion
+        )}</textarea></pre></details>\n\n`;
+        md += `\`\`\`diff\n${report.rawPatch}\n\`\`\`\n\n`;
+      }
     }
   }
 
@@ -118,19 +141,27 @@ export async function generateMarkdownReport(reports: FileReport[]) {
 
 export async function reportFile(file: string, options: ReportOptions = {}): Promise<FileReport> {
   try {
+    debug(`Scanning for acessibility issues in '${file}'...`);
+    const issueDetails = await scanIssues(file);
+    const issues = issueDetails.map((issue) => issue.help);
+    if (issues.length === 0) {
+      debug(`No issues found in ${file}`);
+      return { file, issues };
+    }
+
     debug(`Searching fixes for '${file}'...`);
     const content = await fs.readFile(file, 'utf8');
-    const suggestion = await suggestFix(content);
+    const suggestion = await suggestFix(content, issues);
     if (!suggestion) {
       debug(`No fix suggestion for '${file}'`);
-      return { file };
+      return { file, issues };
     }
 
     debug(`Suggested fix for '${file}':`);
     const patch = generatePatchDiff(file, content, suggestion);
     const rawPatch = generatePatchDiff(file, content, suggestion, false);
     debug(patch);
-    return { file, suggestion, patch, rawPatch };
+    return { file, issues, suggestion, patch, rawPatch };
   } catch (error: unknown) {
     const error_ = error as Error;
     const message = `Could not suggest or apply fix for '${file}': ${error_.message ?? error_}`;
