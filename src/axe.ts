@@ -41,6 +41,7 @@ function getChromePath() {
 export async function scanIssues(file: string): Promise<AxeIssue[]> {
   try {
     const inputFilePath = `file://${path.resolve(file)}`;
+    // TODO: not working! find a way to make Axe use this binary
     process.env['CHROME_BIN'] = getChromePath();
     const command = `axe --chromedriver-path ${await getChromeDriverPath()} --stdout ${inputFilePath}`;
     debug(`Running axe command: ${command}`);

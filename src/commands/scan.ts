@@ -1,8 +1,7 @@
-import fs from 'node:fs/promises';
 import process from 'node:process';
 import chalk from 'chalk';
 import createDebug from 'debug';
-import ora, { type Ora } from 'ora';
+import ora from 'ora';
 import { AxeIssue, scanIssues } from '../axe.js';
 
 const debug = createDebug('scan');
@@ -26,7 +25,7 @@ export async function scan(files: string[], options: ScanOptions = {}) {
       if (result.issues.length > 0) {
         console.info(`${result.file}: ${result.issues.length} issues`);
         for (const issue of result.issues) {
-          console.info(`  - ${chalk.red(issue.description)}`);
+          console.info(`  - ${chalk.red(issue.help)}`);
         }
       }
     }
