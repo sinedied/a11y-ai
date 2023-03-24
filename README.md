@@ -57,3 +57,9 @@ You can also set the API URL using the `A11Y_AI_API` environment variable.
 You can generate a report of all the issues found in your project automatically on your CI/CD using this GitHub Action: [sinedied/a11y-ai-action](https://github.com/sinedied/a11y-ai-action)
 
 You can see a complete [example workflow](https://github.com/sinedied/a11y-ai/blob/main/.github/workflows/action.yml) in action on this repository.
+
+## Limitations
+
+- It works best on full HTML files, not on fragments/components (WIP)
+- If file is too large, the API will return an error (WIP)
+- It needs a matching Chrome version to work (WIP)
