@@ -31,16 +31,20 @@ npm install -g a11y-ai
 ## Usage
 
 ```
-Usage: a11y-ai [<files>] [options]
+Usage: a11y <command> <files> [options]
 
 If no files are specified, it will scan the current directory and
 subdirectories for HTML files.
 
-Options:
-  -f, --fix             Automatically apply fixes suggestions
-  -c, --char-diff       Use character diff instead of patch-like diff
-  -r, --report          Generate a report instead of fixing files
-  -o, --format <format> Report format [html, md] (default: html)
+Commands:
+  s, scan     Scan files for accessibility issues
+  f, fix      Fix accessibility issues interactively
+    -y, --yes        Apply fixes without prompting
+    -c, --char-diff  Use character diff instead of patch-like diff
+  r, report   Generate a report of issues and fix suggestions
+    -o, --format <format> Report format [html, md] (default: html)
+
+General options:
   --api                 Use specified API URL
   --verbose             Show detailed logs
   --help                Show this help
