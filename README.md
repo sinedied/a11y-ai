@@ -37,17 +37,21 @@ If no files are specified, it will scan the current directory and
 subdirectories for HTML files.
 
 Commands:
-  s, scan     Scan files for accessibility issues
-  f, fix      Fix accessibility issues interactively
-    -y, --yes        Apply fixes without prompting
-    -c, --char-diff  Use character diff instead of patch-like diff
-  r, report   Generate a report of issues and fix suggestions
+  s, scan                 Scan files for accessibility issues
+
+  f, fix                  Fix accessibility issues interactively
+    -c, --char-diff       Use character diff instead of patch-like diff
+    -i, --only-issues     Only fix scanned issues
+    -y, --yes             Apply fixes without prompting
+
+  r, report               Generate a report of issues with fix suggestions
     -o, --format <format> Report format [html, md] (default: html)
+    -i, --only-issues     Only suggest fixes for scanned issues
 
 General options:
-  --api                 Use specified API URL
-  --verbose             Show detailed logs
-  --help                Show this help
+  --api                   Use specified API URL
+  --verbose               Show detailed logs
+  --help                  Show this help
 ```
 
 You can also set the API URL using the `A11Y_AI_API` environment variable.
