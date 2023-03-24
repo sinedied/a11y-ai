@@ -1,3 +1,10 @@
+# [0.6.0](https://github.com/sinedied/a11y-ai/compare/0.5.0...0.6.0) (2023-03-24)
+
+
+### Features
+
+* add scan in reports ([e5c2f2d](https://github.com/sinedied/a11y-ai/commit/e5c2f2d2c52b3b153487c76ded75a7dc58f10a4d))
+
 # [0.5.0](https://github.com/sinedied/a11y-ai/compare/0.4.0...0.5.0) (2023-03-24)
 
 
