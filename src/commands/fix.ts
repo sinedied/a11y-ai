@@ -6,6 +6,7 @@ import ora, { type Ora } from 'ora';
 import { suggestFix } from '../ai.js';
 import { generateColoredDiff, generatePatchDiff } from '../diff.js';
 import { askForConfirmation } from '../util.js';
+import { scanIssues } from '../axe.js';
 
 const debug = createDebug('fix');
 
@@ -17,7 +18,9 @@ export type FixOptions = {
 
 export type FixResult = {
   file: string;
+  issues: string[];
   fixed: boolean;
+  accepted?: boolean;
 };
 
 export async function fix(files: string[], options: FixOptions = {}) {
@@ -25,9 +28,18 @@ export async function fix(files: string[], options: FixOptions = {}) {
   try {
     if (options.interactive) {
       for (const file of files) {
-        spinner = ora(`Searching fixes for ${chalk.cyan(file)}...`).start();
+        spinner = ora(`Scanning for acessibility issues in ${chalk.cyan(file)}...`).start();
         // eslint-disable-next-line no-await-in-loop
-        await fixFile(file, { ...options, spinner });
+        const result = await fixFile(file, { ...options, spinner });
+        if (result.issues.length === 0) {
+          spinner.succeed(`No issues found in ${chalk.cyan(file)}`);
+        } else if (result.issues.length > 0) {
+          if (result.accepted) {
+            spinner.succeed(`Fixes applied to ${chalk.cyan(file)}`);
+          } else {
+            spinner.fail(`Fixes rejected for ${chalk.cyan(file)}`);
+          }
+        }
       }
     } else {
       spinner = ora('Automatically fixing files...').start();
@@ -49,25 +61,44 @@ export async function fix(files: string[], options: FixOptions = {}) {
 export async function fixFile(file: string, options: FixOptions = {}): Promise<FixResult> {
   const interactive = options.interactive ?? true;
   try {
+    debug(`Scanning for acessibility issues in '${file}'...`);
+    const issueDetails = await scanIssues(file);
+    const issues = issueDetails.map((issue) => issue.help);
+    if (interactive) {
+      if (issues.length === 0) {
+        options.spinner?.stop();
+        debug(`No issues found in ${file}`);
+        return { file, issues, fixed: false };
+      }
+      if (options.spinner) {
+        options.spinner.text = `Searching fixes for ${chalk.cyan(file)}...`;
+      }
+    }
+
     debug(`Searching fixes for '${file}'...`);
     const content = await fs.readFile(file, 'utf8');
-    const suggestion = await suggestFix(content);
+    const suggestion = await suggestFix(content, issues);
     if (!suggestion) {
       debug(`No fix suggestion for '${file}'`);
-      return { file, fixed: false };
+      return { file, issues, fixed: false };
     }
 
     if (interactive) {
       options.spinner?.stop();
+      console.info(`${issues.length} issue${issues.length > 1 ? 's' : ''} found in ${chalk.cyan(file)}:`);
+      for (const issue of issues) {
+        console.info(`  - ${chalk.red(issue)}`);
+      }
+      console.info();
       const result = await interactiveFix(file, content, suggestion, options);
-      return { file, fixed: result };
+      return { file, issues, fixed: true, accepted: result };
     }
 
     debug(`Suggested fix for '${file}':`);
     debug(generatePatchDiff(file, content, suggestion));
     await fs.writeFile(file, suggestion);
     debug(`Applied fix for '${file}'`);
-    return { file, fixed: true };
+    return { file, issues, fixed: true, accepted: true };
   } catch (error: unknown) {
     const error_ = error as Error;
     const message = `Could not suggest or apply fix for '${file}': ${error_.message ?? error_}`;

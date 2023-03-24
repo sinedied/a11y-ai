@@ -1,4 +1,5 @@
 import process from 'node:process';
+import chalk from 'chalk';
 import debug from 'debug';
 import glob from 'fast-glob';
 import minimist from 'minimist';
@@ -6,32 +7,37 @@ import { fix, report, scan } from './commands/index.js';
 import { getPackageJson } from './util.js';
 import { reportOutputFilename } from './constants.js';
 
-const help = `Usage: a11y <command> <files> [options]
+const help = `${chalk.bold('Usage:')} a11y <command> <files> [options]
 
 If no files are specified, it will scan the current directory and
 subdirectories for HTML files.
 
-Commands:
-  s, scan     Scan files for accessibility issues
-  f, fix      Fix accessibility issues interactively
-    -y, --yes        Apply fixes without prompting
-    -c, --char-diff  Use character diff instead of patch-like diff
-  r, report   Generate a report of issues and fix suggestions
-    -o, --format <format> Report format [html, md] (default: html)
+${chalk.bold('Commands:')}
+  s, scan                 Scan files for accessibility issues
 
-General options:
-  --api                 Use specified API URL
-  --verbose             Show detailed logs
-  --help                Show this help
+  f, fix                  Fix accessibility issues interactively
+    -c, --char-diff       Use character diff instead of patch-like diff
+    -i, --only-issues     Only fix scanned issues
+    -y, --yes             Apply fixes without prompting
+
+  r, report               Generate a report of issues with fix suggestions
+    -o, --format <format> Report format [html, md] (default: html)
+    -i, --only-issues     Only suggest fixes for scanned issues
+
+${chalk.bold('General options:')}
+  --api                   Use specified API URL
+  --verbose               Show detailed logs
+  --help                  Show this help
 `;
 
 export async function run(args: string[]) {
   const options = minimist(args, {
     string: ['format', 'api'],
-    boolean: ['yes', 'verbose', 'version', 'help', 'char-diff'],
+    boolean: ['yes', 'verbose', 'version', 'help', 'char-diff', 'only-issues'],
     alias: {
       y: 'yes',
       c: 'char-diff',
+      i: 'only-issues',
       o: 'format',
       v: 'version'
     }
