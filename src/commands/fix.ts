@@ -70,6 +70,7 @@ export async function fixFile(file: string, options: FixOptions = {}): Promise<F
         debug(`No issues found in ${file}`);
         return { file, issues, fixed: false };
       }
+
       if (options.spinner) {
         options.spinner.text = `Searching fixes for ${chalk.cyan(file)}...`;
       }
@@ -89,6 +90,7 @@ export async function fixFile(file: string, options: FixOptions = {}): Promise<F
       for (const issue of issues) {
         console.info(`  - ${chalk.red(issue)}`);
       }
+
       console.info();
       const result = await interactiveFix(file, content, suggestion, options);
       return { file, issues, fixed: true, accepted: result };

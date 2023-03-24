@@ -2,12 +2,11 @@ import process from 'node:process';
 import chalk from 'chalk';
 import createDebug from 'debug';
 import ora from 'ora';
-import { AxeIssue, scanIssues } from '../axe.js';
+import { type AxeIssue, scanIssues } from '../axe.js';
 
 const debug = createDebug('scan');
 
-export type ScanOptions = {
-};
+export type ScanOptions = Record<string, unknown>;
 
 export type ScanResult = {
   file: string;
