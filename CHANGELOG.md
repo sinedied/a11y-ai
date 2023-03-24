@@ -1,3 +1,12 @@
+# [0.5.0](https://github.com/sinedied/a11y-ai/compare/0.4.0...0.5.0) (2023-03-24)
+
+
+### Features
+
+* add option to set api url ([63c9e6e](https://github.com/sinedied/a11y-ai/commit/63c9e6e7394b07ece6611e66bf6fae02a3cac800))
+* improve fix ui ([407fde7](https://github.com/sinedied/a11y-ai/commit/407fde766b6833b919062442b6c0a478cf140de4))
+* wire new api ([186e895](https://github.com/sinedied/a11y-ai/commit/186e895ff1c746461fc4154957fa4da6e7bff76b))
+
 # [0.4.0](https://github.com/sinedied/a11y-ai/compare/0.3.3...0.4.0) (2023-03-23)
 
 
