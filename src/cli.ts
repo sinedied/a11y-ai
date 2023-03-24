@@ -20,13 +20,14 @@ Commands:
     -o, --format <format> Report format [html, md] (default: html)
 
 General options:
+  --api                 Use specified API URL
   --verbose             Show detailed logs
   --help                Show this help
 `;
 
 export async function run(args: string[]) {
   const options = minimist(args, {
-    string: ['format'],
+    string: ['format', 'api'],
     boolean: ['yes', 'verbose', 'version', 'help', 'char-diff'],
     alias: {
       y: 'yes',
@@ -49,6 +50,10 @@ export async function run(args: string[]) {
 
   if (options.verbose) {
     debug.enable('*,-puppeteer:*');
+  }
+
+  if (options.api) {
+    process.env.A11Y_API_URL = options.api ? options.api : process.env.A11Y_API_URL;
   }
 
   const [command, ...files] = options._;

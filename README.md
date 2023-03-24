@@ -41,9 +41,12 @@ Options:
   -c, --char-diff       Use character diff instead of patch-like diff
   -r, --report          Generate a report instead of fixing files
   -o, --format <format> Report format [html, md] (default: html)
+  --api                 Use specified API URL
   --verbose             Show detailed logs
   --help                Show this help
 ```
+
+You can also set the API URL using the `A11Y_AI_API` environment variable.
 
 ## Automated reports
 
