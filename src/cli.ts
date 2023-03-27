@@ -59,7 +59,7 @@ export async function run(args: string[]) {
   }
 
   if (options.api) {
-    process.env.A11Y_API_URL = options.api ? options.api : process.env.A11Y_API_URL;
+    process.env.A11Y_API_URL = (options.api && options.api !== '' ? options.api : process.env.A11Y_API_URL) as string;
   }
 
   const [command, ...files] = options._;

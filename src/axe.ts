@@ -48,10 +48,10 @@ export async function scanIssues(file: string): Promise<AxeIssue[]> {
     const command = `axe --chromedriver-path ${await getChromeDriverPath()} --stdout ${inputFilePath}`;
     debug(`Running axe command: ${command}`);
     const results = await runCommand(command);
-    const json = JSON.parse(results);
-    const issues = json[0].violations;
+    const json = JSON.parse(results) as Record<string, any>;
+    const issues = json[0].violations as AxeIssue[];
     debug(`Found ${issues.length} issues`);
-    return issues as AxeIssue[];
+    return issues;
   } catch (error: unknown) {
     const error_ = error as Error;
     const message = `Error while running axe: ${error_.message ?? error_}`;

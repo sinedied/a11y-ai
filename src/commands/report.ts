@@ -86,7 +86,7 @@ export async function generateHtmlReport(reports: FileReport[]) {
       html += `<hr>`;
       html += `<h3>Report for <code>${report.file}</code></h3>`;
       html += `<h4>Issues</h4>`;
-      
+
       if (report.issues.length === 0) {
         html += '<p>No issues found</p>';
       } else {
@@ -94,6 +94,7 @@ export async function generateHtmlReport(reports: FileReport[]) {
         for (const issue of report.issues) {
           html += `<li>${escapeForHtml(issue)}</li>`;
         }
+
         html += '</ul>';
         html += `<h4>Suggested fixes</h4>`;
         html += '<details><summary>Raw suggestion</summary>';
