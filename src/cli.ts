@@ -1,4 +1,5 @@
 import process from 'node:process';
+import dns from 'node:dns';
 import chalk from 'chalk';
 import debug from 'debug';
 import glob from 'fast-glob';
@@ -6,6 +7,8 @@ import minimist from 'minimist';
 import { fix, report, scan } from './commands/index.js';
 import { getPackageJson } from './util.js';
 import { reportOutputFilename } from './constants.js';
+
+dns.setDefaultResultOrder('ipv4first');
 
 const help = `${chalk.bold('Usage:')} a11y <command> <files> [options]
 
