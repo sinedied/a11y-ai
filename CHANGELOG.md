@@ -1,3 +1,11 @@
+## [0.6.2](https://github.com/sinedied/a11y-ai/compare/0.6.1...0.6.2) (2023-03-31)
+
+
+### Bug Fixes
+
+* attempt to fix path issues ([ca8d2e2](https://github.com/sinedied/a11y-ai/commit/ca8d2e2893f72525d1e5989a03d2d442d951c52c))
+* force dns resolution order ([8fa87e9](https://github.com/sinedied/a11y-ai/commit/8fa87e96554404b1360bf84175c6a83be0f527b2))
+
 ## [0.6.1](https://github.com/sinedied/a11y-ai/compare/0.6.0...0.6.1) (2023-03-24)
 
 # [0.6.0](https://github.com/sinedied/a11y-ai/compare/0.5.0...0.6.0) (2023-03-24)
