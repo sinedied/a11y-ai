@@ -1,4 +1,5 @@
 import fs from 'node:fs/promises';
+import path from 'node:path';
 import process from 'node:process';
 import chalk from 'chalk';
 import createDebug from 'debug';
@@ -18,6 +19,7 @@ export type FixOptions = {
 
 export type FixResult = {
   file: string;
+  scanned: boolean;
   issues: string[];
   fixed: boolean;
   accepted?: boolean;
@@ -61,19 +63,26 @@ export async function fix(files: string[], options: FixOptions = {}) {
 export async function fixFile(file: string, options: FixOptions = {}): Promise<FixResult> {
   const interactive = options.interactive ?? true;
   try {
-    debug(`Scanning for acessibility issues in '${file}'...`);
-    const issueDetails = await scanIssues(file);
-    const issues = issueDetails.map((issue) => issue.help);
-    if (interactive) {
-      if (issues.length === 0) {
-        options.spinner?.stop();
-        debug(`No issues found in ${file}`);
-        return { file, issues, fixed: false };
-      }
+    const scan = path.extname(file) === '.html';
+    let issues: string[] = [];
 
-      if (options.spinner) {
-        options.spinner.text = `Searching fixes for ${chalk.cyan(file)}...`;
+    if (scan) {
+      debug(`Scanning for acessibility issues in '${file}'...`);
+      const issueDetails = await scanIssues(file);
+      issues = issueDetails.map((issue) => issue.help);
+      if (interactive) {
+        if (issues.length === 0) {
+          options.spinner?.stop();
+          debug(`No issues found in ${file}`);
+          return { file, scanned: scan, issues, fixed: false };
+        }
+
+        if (options.spinner) {
+          options.spinner.text = `Searching fixes for ${chalk.cyan(file)}...`;
+        }
       }
+    } else {
+      debug(`Skipping scan for '${file}' (not an HTML file)`);
     }
 
     debug(`Searching fixes for '${file}'...`);
@@ -81,26 +90,30 @@ export async function fixFile(file: string, options: FixOptions = {}): Promise<F
     const suggestion = await suggestFix(content, issues);
     if (!suggestion) {
       debug(`No fix suggestion for '${file}'`);
-      return { file, issues, fixed: false };
+      return { file, scanned: scan, issues, fixed: false };
     }
 
     if (interactive) {
       options.spinner?.stop();
-      console.info(`${issues.length} issue${issues.length > 1 ? 's' : ''} found in ${chalk.cyan(file)}:`);
-      for (const issue of issues) {
-        console.info(`  - ${chalk.red(issue)}`);
+      if (scan) {
+        console.info(`${issues.length} issue${issues.length > 1 ? 's' : ''} found in ${chalk.cyan(file)}:`);
+        for (const issue of issues) {
+          console.info(`  - ${chalk.red(issue)}`);
+        }
+      } else {
+        console.info(`Skipped scan for ${chalk.cyan(file)} (not an HTML file), but found potential fixes:`);
       }
 
       console.info();
       const result = await interactiveFix(file, content, suggestion, options);
-      return { file, issues, fixed: true, accepted: result };
+      return { file, scanned: scan, issues, fixed: true, accepted: result };
     }
 
     debug(`Suggested fix for '${file}':`);
     debug(generatePatchDiff(file, content, suggestion));
     await fs.writeFile(file, suggestion);
     debug(`Applied fix for '${file}'`);
-    return { file, issues, fixed: true, accepted: true };
+    return { file, scanned: scan, issues, fixed: true, accepted: true };
   } catch (error: unknown) {
     const error_ = error as Error;
     const message = `Could not suggest or apply fix for '${file}': ${error_.message ?? error_}`;

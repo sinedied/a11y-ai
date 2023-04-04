@@ -54,3 +54,8 @@ export async function runCommand(command: string): Promise<string> {
   const result = await promisify(exec)(command);
   return result.stdout.toString();
 }
+
+export async function isHtmlPartial(file: string): Promise<boolean> {
+  const content = await fs.readFile(file, 'utf8');
+  return content.match(/<html[\s\S]*<\/html>/im) === null;
+}

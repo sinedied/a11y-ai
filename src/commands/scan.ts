@@ -1,3 +1,4 @@
+import path from 'node:path';
 import process from 'node:process';
 import chalk from 'chalk';
 import createDebug from 'debug';
@@ -11,6 +12,7 @@ export type ScanOptions = Record<string, unknown>;
 export type ScanResult = {
   file: string;
   issues: AxeIssue[];
+  skipped: boolean;
 };
 
 export async function scan(files: string[], options: ScanOptions = {}) {
@@ -26,6 +28,8 @@ export async function scan(files: string[], options: ScanOptions = {}) {
         for (const issue of result.issues) {
           console.info(`  - ${chalk.red(issue.help)}`);
         }
+      } else if (result.skipped) {
+        console.info(`${chalk.dim(result.file)}: skipped (cannot scan for issues in non-HTML files)`);
       }
     }
   } catch (error: unknown) {
@@ -38,9 +42,13 @@ export async function scan(files: string[], options: ScanOptions = {}) {
 
 export async function scanFile(file: string, options: ScanOptions = {}): Promise<ScanResult> {
   try {
+    if (path.extname(file) !== '.html') {
+      return { file, issues: [], skipped: true };
+    }
+
     debug(`Scanning issues for '${file}'...`);
     const issues = await scanIssues(file);
-    return { file, issues };
+    return { file, issues, skipped: false };
   } catch (error: unknown) {
     const error_ = error as Error;
     const message = `Could not scan issues for '${file}': ${error_.message ?? error_}`;
