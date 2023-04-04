@@ -1,3 +1,10 @@
+# [0.7.0](https://github.com/sinedied/a11y-ai/compare/0.6.2...0.7.0) (2023-04-04)
+
+
+### Features
+
+* detect html partials and non-html files ([38d1999](https://github.com/sinedied/a11y-ai/commit/38d19993163b8c2ce75fe2cdd3c390af61c4b96a))
+
 ## [0.6.2](https://github.com/sinedied/a11y-ai/compare/0.6.1...0.6.2) (2023-03-31)
 
 
