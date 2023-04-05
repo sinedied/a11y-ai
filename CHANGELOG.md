@@ -1,3 +1,5 @@
+## [0.8.1](https://github.com/sinedied/a11y-ai/compare/0.8.0...0.8.1) (2023-04-05)
+
 # [0.8.0](https://github.com/sinedied/a11y-ai/compare/0.7.0...0.8.0) (2023-04-05)
 
 
