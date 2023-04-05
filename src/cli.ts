@@ -3,6 +3,7 @@ import dns from 'node:dns';
 import chalk from 'chalk';
 import debug from 'debug';
 import glob from 'fast-glob';
+import updateNotifier from 'update-notifier';
 import minimist from 'minimist';
 import { fix, report, scan } from './commands/index.js';
 import { getPackageJson } from './util.js';
@@ -46,8 +47,11 @@ export async function run(args: string[]) {
     }
   });
 
+  const pkg = await getPackageJson();
+  // Check for updates at every run during alpha phase
+  updateNotifier({ pkg: pkg as any, updateCheckInterval: 0 }).notify();
+
   if (options.version) {
-    const pkg = await getPackageJson();
     console.info(pkg.version);
     return;
   }

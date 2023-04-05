@@ -2,7 +2,7 @@ import path, { dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import process from 'node:process';
 import createDebug from 'debug';
-import puppeteer from 'puppeteer';
+// import puppeteer from 'puppeteer';
 import { isHtmlPartial, pathExists, runCommand } from './util.js';
 
 const debug = createDebug('axe');
@@ -34,18 +34,18 @@ async function getChromeDriverPath() {
   return chromedriverPath;
 }
 
-function getChromePath() {
-  const chromePath = puppeteer.executablePath();
-  debug('chrome path: %s', chromePath);
-  return chromePath;
-}
+// function getChromePath() {
+//   const chromePath = puppeteer.executablePath();
+//   debug('chrome path: %s', chromePath);
+//   return chromePath;
+// }
 
 export async function scanIssues(file: string): Promise<AxeIssue[]> {
   try {
     const inputFilePath = `file://${path.resolve(file)}`;
 
     // TODO: not working! find a way to make Axe use this binary
-    process.env.CHROME_BIN = getChromePath();
+    // process.env.CHROME_BIN = getChromePath();
 
     const axeOptions = [
       `--chromedriver-path "${await getChromeDriverPath()}"`,
