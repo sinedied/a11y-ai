@@ -64,6 +64,7 @@ You can see a complete [example workflow](https://github.com/sinedied/a11y-ai/bl
 
 ## Limitations
 
-- It works best on full HTML files, not on fragments/components (WIP)
-- If file is too large, the API will return an error (WIP)
+- Windows support outside of WSL2 is currently not working due to a bug in Axe CLI (WIP)
+- If file is too large, the API will return an error 500 (WIP)
 - It needs a matching Chrome version to work (WIP)
+- Issue scanning is only supported for HTML files, not for JS/TS components
