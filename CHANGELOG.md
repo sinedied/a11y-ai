@@ -1,3 +1,10 @@
+# [0.8.0](https://github.com/sinedied/a11y-ai/compare/0.7.0...0.8.0) (2023-04-05)
+
+
+### Features
+
+* add update checker ([df949dd](https://github.com/sinedied/a11y-ai/commit/df949dd95aa2f4efbdfb8a9b5c37d9a0613ecda4))
+
 # [0.7.0](https://github.com/sinedied/a11y-ai/compare/0.6.2...0.7.0) (2023-04-04)
 
 
