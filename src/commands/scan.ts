@@ -4,7 +4,7 @@ import chalk from 'chalk';
 import createDebug from 'debug';
 import ora from 'ora';
 import { type AxeIssue, scanIssues } from '../axe.js';
-import { resolveFilesOrUrls } from '../util.js';
+import { isUrl, resolveFilesOrUrls } from '../util.js';
 
 const debug = createDebug('scan');
 
@@ -44,7 +44,7 @@ export async function scan(files: string[], options: ScanOptions = {}) {
 
 export async function scanFile(file: string, options: ScanOptions = {}): Promise<ScanResult> {
   try {
-    if (path.extname(file) !== '.html') {
+    if (!isUrl(file) && path.extname(file) !== '.html') {
       return { file, issues: [], skipped: true };
     }
 

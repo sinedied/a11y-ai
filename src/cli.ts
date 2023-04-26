@@ -9,13 +9,13 @@ import { getPackageJson } from './util.js';
 
 dns.setDefaultResultOrder('ipv4first');
 
-const help = `${chalk.bold('Usage:')} a11y <command> <files> [options]
+const help = `${chalk.bold('Usage:')} a11y <command> <files_or_urls> [options]
 
 If no files are specified, it will scan the current directory and
 subdirectories for HTML files.
 
 ${chalk.bold('Commands:')}
-  s, scan                 Scan files for accessibility issues
+  s, scan                 Scan files or URLs for accessibility issues
 
   f, fix                  Fix accessibility issues interactively
     -i, --issues <issues> Comma-separated list of issues to fix (disable scan)

@@ -62,9 +62,13 @@ export async function isHtmlPartial(file: string): Promise<boolean> {
   return content.match(/<html[\s\S]*<\/html>/im) === null;
 }
 
+export function isUrl(file: string): boolean {
+  return /https?:/.test(file);
+}
+
 export async function resolveFilesOrUrls(filesOrUrls: string[]): Promise<string[]> {
   const globs = filesOrUrls.length > 0 ? filesOrUrls : ['**/*.html'];
-  if (/https?:/.test(globs[0])) {
+  if (isUrl(globs[0])) {
     return globs;
   }
 

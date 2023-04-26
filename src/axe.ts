@@ -3,7 +3,7 @@ import { fileURLToPath } from 'node:url';
 import process from 'node:process';
 import createDebug from 'debug';
 // import puppeteer from 'puppeteer';
-import { isHtmlPartial, pathExists, runCommand } from './util.js';
+import { isHtmlPartial, isUrl, pathExists, runCommand } from './util.js';
 
 const debug = createDebug('axe');
 const __dirname = dirname(fileURLToPath(import.meta.url));
@@ -42,7 +42,8 @@ async function getChromeDriverPath() {
 
 export async function scanIssues(file: string): Promise<AxeIssue[]> {
   try {
-    const inputFilePath = `file://${path.resolve(file)}`;
+    const isFileUrl = isUrl(file);
+    const inputFilePath = isFileUrl ? file : `file://${path.resolve(file)}`;
 
     // TODO: not working! find a way to make Axe use this binary
     // process.env.CHROME_BIN = getChromePath();
@@ -52,7 +53,7 @@ export async function scanIssues(file: string): Promise<AxeIssue[]> {
       '--stdout'
     ];
 
-    const isPartial = await isHtmlPartial(file);
+    const isPartial = !isFileUrl && await isHtmlPartial(file);
     if (isPartial) {
       // Disable rules that require a full HTML document
       axeOptions.push('--disable html-has-lang,document-title,landmark-one-main,region,page-has-heading-one');
