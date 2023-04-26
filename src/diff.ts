@@ -1,5 +1,5 @@
 import chalk from 'chalk';
-import { createPatch, diffChars } from 'diff';
+import { applyPatch, createPatch, diffChars, parsePatch } from 'diff';
 
 export function generateColoredDiff(content: string, suggestion: string) {
   const diff = diffChars(content, suggestion);
@@ -15,6 +15,25 @@ export function generateColoredDiff(content: string, suggestion: string) {
   }
 
   return coloredDiff.trim();
+}
+
+export function applyPatchDiff(content: string, suggestion: string, isDiff = false) {
+  if (!isDiff) {
+    return suggestion;
+  }
+
+  let finalSuggestion = content;
+  const patches = parsePatch(suggestion);
+
+  if (patches.length === 0) {
+    throw new Error(`Could not parse patch suggestion`);
+  } else {
+    for (const patch of patches) {
+      finalSuggestion = applyPatch(finalSuggestion, patch);
+    }
+  }
+
+  return finalSuggestion;
 }
 
 export function generatePatchDiff(file: string, content: string, suggestion: string, colors = true) {

@@ -4,6 +4,7 @@ import chalk from 'chalk';
 import createDebug from 'debug';
 import ora from 'ora';
 import { type AxeIssue, scanIssues } from '../axe.js';
+import { resolveFilesOrUrls } from '../util.js';
 
 const debug = createDebug('scan');
 
@@ -18,6 +19,7 @@ export type ScanResult = {
 export async function scan(files: string[], options: ScanOptions = {}) {
   let spinner;
   try {
+    files = await resolveFilesOrUrls(files);
     spinner = ora('Scanning files for issues...').start();
     const promises = files.map(async (file) => scanFile(file, options));
     const results = await Promise.all(promises);

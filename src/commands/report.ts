@@ -7,7 +7,7 @@ import AnsiToHtml from 'ansi-to-html';
 import ora from 'ora';
 import { generatePatchDiff } from '../diff.js';
 import { suggestFix } from '../ai.js';
-import { getPackageJson, escapeForHtml } from '../util.js';
+import { getPackageJson, escapeForHtml, resolveFilesOrUrls } from '../util.js';
 import { reportOutputFilename } from '../constants.js';
 import { scanIssues } from '../axe.js';
 
@@ -15,6 +15,9 @@ const debug = createDebug('report');
 
 export type ReportOptions = {
   format?: 'html' | 'md';
+  issues?: string[];
+  context?: string;
+  outputDiff?: boolean;
 };
 
 export type FileReport = {
@@ -35,6 +38,7 @@ export async function report(files: string[], options: ReportOptions = {}): Prom
   const format = options.format === 'md' ? 'md' : 'html';
   let spinner;
   try {
+    files = await resolveFilesOrUrls(files);
     spinner = ora('Generating report...').start();
     // Force color output for HTML report
     const oldLevel = chalk.level;
@@ -142,17 +146,22 @@ export async function generateMarkdownReport(reports: FileReport[]) {
 
 export async function reportFile(file: string, options: ReportOptions = {}): Promise<FileReport> {
   try {
-    debug(`Scanning for acessibility issues in '${file}'...`);
-    const issueDetails = await scanIssues(file);
-    const issues = issueDetails.map((issue) => issue.help);
+    let issues = options.issues ?? [];
     if (issues.length === 0) {
-      debug(`No issues found in ${file}`);
-      return { file, issues };
+      debug(`Scanning for acessibility issues in '${file}'...`);
+      const issueDetails = await scanIssues(file);
+      issues = issueDetails.map((issue) => issue.help);
+      if (issues.length === 0) {
+        debug(`No issues found in ${file}`);
+        return { file, issues };
+      }
+    } else {
+      debug(`Using provided issues for '${file}'`);
     }
 
     debug(`Searching fixes for '${file}'...`);
     const content = await fs.readFile(file, 'utf8');
-    const suggestion = await suggestFix(content, issues);
+    const suggestion = await suggestFix(content, issues, options);
     if (!suggestion) {
       debug(`No fix suggestion for '${file}'`);
       return { file, issues };

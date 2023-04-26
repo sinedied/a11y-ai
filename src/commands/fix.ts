@@ -6,7 +6,7 @@ import createDebug from 'debug';
 import ora, { type Ora } from 'ora';
 import { suggestFix } from '../ai.js';
 import { generateColoredDiff, generatePatchDiff } from '../diff.js';
-import { askForConfirmation } from '../util.js';
+import { askForConfirmation, resolveFilesOrUrls } from '../util.js';
 import { scanIssues } from '../axe.js';
 
 const debug = createDebug('fix');
@@ -14,6 +14,9 @@ const debug = createDebug('fix');
 export type FixOptions = {
   interactive?: boolean;
   patchDiff?: boolean;
+  issues?: string[];
+  context?: string;
+  outputDiff?: boolean;
   spinner?: Ora;
 };
 
@@ -28,9 +31,10 @@ export type FixResult = {
 export async function fix(files: string[], options: FixOptions = {}) {
   let spinner;
   try {
+    files = await resolveFilesOrUrls(files);
     if (options.interactive) {
       for (const file of files) {
-        spinner = ora(`Scanning for acessibility issues in ${chalk.cyan(file)}...`).start();
+        spinner = ora(`Fixing acessibility issues in ${chalk.cyan(file)}...`).start();
         // eslint-disable-next-line no-await-in-loop
         const result = await fixFile(file, { ...options, spinner });
         if (result.issues.length === 0) {
@@ -62,10 +66,10 @@ export async function fix(files: string[], options: FixOptions = {}) {
 
 export async function fixFile(file: string, options: FixOptions = {}): Promise<FixResult> {
   const interactive = options.interactive ?? true;
-  try {
-    const scan = path.extname(file) === '.html';
-    let issues: string[] = [];
+  let issues = options.issues ?? [];
 
+  try {
+    const scan = issues.length === 0 && path.extname(file) === '.html';
     if (scan) {
       debug(`Scanning for acessibility issues in '${file}'...`);
       const issueDetails = await scanIssues(file);
@@ -87,7 +91,7 @@ export async function fixFile(file: string, options: FixOptions = {}): Promise<F
 
     debug(`Searching fixes for '${file}'...`);
     const content = await fs.readFile(file, 'utf8');
-    const suggestion = await suggestFix(content, issues);
+    const suggestion = await suggestFix(content, issues, options);
     if (!suggestion) {
       debug(`No fix suggestion for '${file}'`);
       return { file, scanned: scan, issues, fixed: false };
@@ -95,8 +99,8 @@ export async function fixFile(file: string, options: FixOptions = {}): Promise<F
 
     if (interactive) {
       options.spinner?.stop();
-      if (scan) {
-        console.info(`${issues.length} issue${issues.length > 1 ? 's' : ''} found in ${chalk.cyan(file)}:`);
+      if (scan || issues.length > 0) {
+        console.info(`${issues.length} issue${issues.length > 1 ? 's' : ''} ${scan ? 'found' : 'to fix' } in ${chalk.cyan(file)}:`);
         for (const issue of issues) {
           console.info(`  - ${chalk.red(issue)}`);
         }

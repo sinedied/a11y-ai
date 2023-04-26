@@ -5,6 +5,8 @@ import process from 'node:process';
 import fs from 'node:fs/promises';
 import { promisify } from 'node:util';
 import { exec } from 'node:child_process';
+import glob from 'fast-glob';
+import { reportOutputFilename } from './constants.js';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
@@ -58,4 +60,24 @@ export async function runCommand(command: string): Promise<string> {
 export async function isHtmlPartial(file: string): Promise<boolean> {
   const content = await fs.readFile(file, 'utf8');
   return content.match(/<html[\s\S]*<\/html>/im) === null;
+}
+
+export async function resolveFilesOrUrls(filesOrUrls: string[]): Promise<string[]> {
+  const globs = filesOrUrls.length > 0 ? filesOrUrls : ['**/*.html'];
+  if (/https?:/.test(globs[0])) {
+    return globs;
+  }
+
+  const resolvedFiles = await glob(globs, {
+    dot: true,
+    ignore: ['**/node_modules/**', `${reportOutputFilename}.*`]
+  });
+
+  if (resolvedFiles.length === 0) {
+    console.error('No files found');
+    process.exitCode = 1;
+    return [];
+  }
+
+  return resolvedFiles;
 }
