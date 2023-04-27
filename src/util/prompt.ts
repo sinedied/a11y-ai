@@ -1,4 +1,5 @@
 import { createInterface } from 'node:readline';
+import process from 'node:process';
 
 export async function askForInput(question: string): Promise<string> {
   return new Promise((resolve, _reject) => {

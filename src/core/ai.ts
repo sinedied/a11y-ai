@@ -3,7 +3,7 @@ import { got } from 'got';
 import createDebug from 'debug';
 import { apiUrl } from '../constants.js';
 import { applyPatchDiff } from '../util/index.js';
-// import { isUrl } from '../util/index.js';
+// Import { isUrl } from '../util/index.js';
 
 const debug = createDebug('ai');
 
@@ -17,7 +17,7 @@ export type FixResponse = {
 };
 
 export async function suggestFix(file: string, code: string, issues: string[] = [], options: FixSettings = {}) {
-  // const isFileUrl = isUrl(file);
+  // Const isFileUrl = isUrl(file);
   const outputDiff = options.outputDiff ?? false;
   const url = process.env.A11Y_API_URL ?? apiUrl;
   debug(`Using a11y API URL: ${url}`);

@@ -6,7 +6,14 @@ import chalk from 'chalk';
 import ora, { type Ora } from 'ora';
 import { HTTPError } from 'got';
 import { scanIssues, suggestFix } from '../core/index.js';
-import { generateColoredDiff, generatePatchDiff, askForConfirmation, isUrl, resolveFilesOrUrls, downloadPageUrl } from '../util/index.js';
+import {
+  generateColoredDiff,
+  generatePatchDiff,
+  askForConfirmation,
+  isUrl,
+  resolveFilesOrUrls,
+  downloadPageUrl
+} from '../util/index.js';
 
 const debug = createDebug('fix');
 
@@ -99,7 +106,9 @@ export async function fixFile(file: string, options: FixOptions = {}): Promise<F
     if (interactive) {
       options.spinner?.stop();
       if (scan || issues.length > 0) {
-        console.info(`${issues.length} issue${issues.length > 1 ? 's' : ''} ${scan ? 'found' : 'to fix' } in ${chalk.cyan(file)}:`);
+        console.info(
+          `${issues.length} issue${issues.length > 1 ? 's' : ''} ${scan ? 'found' : 'to fix'} in ${chalk.cyan(file)}:`
+        );
         for (const issue of issues) {
           console.info(`  - ${chalk.red(issue)}`);
         }
@@ -119,15 +128,15 @@ export async function fixFile(file: string, options: FixOptions = {}): Promise<F
     return { file, scanned: scan, issues, fixed: true, accepted: true };
   } catch (error: unknown) {
     let message = `Could not suggest or apply fix for '${file}': `;
-    
+
     if (error instanceof HTTPError) {
-      const details = JSON.parse(error.response.body as any ?? '{}');
-      message += details?.error ?? error.message ?? error;
+      const details = JSON.parse((error.response.body as string) ?? '{}') as Record<string, any>;
+      message += String(details?.error ?? error.message ?? error);
     } else {
       const error_ = error as Error;
       message = error_.message ?? error_;
     }
-    
+
     debug(message);
     throw new Error(message);
   }

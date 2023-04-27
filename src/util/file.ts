@@ -24,7 +24,7 @@ export async function getPackageJson(): Promise<Record<string, any>> {
 
 export async function isHtmlPartial(file: string): Promise<boolean> {
   const content = await fs.readFile(file, 'utf8');
-  return content.match(/<html[\s\S]*<\/html>/im) === null;
+  return /<html[\s\S]*<\/html>/im.exec(content) === null;
 }
 
 export function isUrl(file: string): boolean {

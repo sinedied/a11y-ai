@@ -2,7 +2,7 @@ import process from 'node:process';
 import dns from 'node:dns';
 import chalk from 'chalk';
 import debug from 'debug';
-import updateNotifier from 'update-notifier';
+import updateNotifier, { type Package } from 'update-notifier';
 import minimist from 'minimist';
 import { fix, report, scan } from './commands/index.js';
 import { getPackageJson } from './util/index.js';
@@ -51,7 +51,7 @@ export async function run(args: string[]) {
 
   const pkg = await getPackageJson();
   // Check for updates at every run during alpha phase
-  updateNotifier({ pkg: pkg as any, updateCheckInterval: 0 }).notify();
+  updateNotifier({ pkg: pkg as Package, updateCheckInterval: 0 }).notify();
 
   if (options.version) {
     console.info(pkg.version);
@@ -80,9 +80,9 @@ export async function run(args: string[]) {
       await fix(filesOrUrls, {
         interactive: !options.fix,
         patchDiff: !options['char-diff'],
-        issues: options.issues?.split(','),
-        context: options.context,
-        outputDiff: Boolean(options['gpt-diff']),
+        issues: (options.issues as string | undefined)?.split(','),
+        context: options.context as string | undefined,
+        outputDiff: Boolean(options['gpt-diff'])
       });
       break;
     }
@@ -97,9 +97,9 @@ export async function run(args: string[]) {
     case 'report': {
       await report(filesOrUrls, {
         format: options.format as 'html' | 'md',
-        issues: options.issues?.split(','),
-        context: options.context,
-        outputDiff: Boolean(options['gpt-diff']),
+        issues: (options.issues as string | undefined)?.split(','),
+        context: options.context as string | undefined,
+        outputDiff: Boolean(options['gpt-diff'])
       });
       break;
     }

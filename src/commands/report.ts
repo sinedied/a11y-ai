@@ -7,7 +7,14 @@ import AnsiToHtml from 'ansi-to-html';
 import ora from 'ora';
 import { HTTPError } from 'got';
 import { scanIssues, suggestFix } from '../core/index.js';
-import { generatePatchDiff, getPackageJson, escapeForHtml, resolveFilesOrUrls, isUrl, downloadPageUrl } from '../util/index.js';
+import {
+  generatePatchDiff,
+  getPackageJson,
+  escapeForHtml,
+  resolveFilesOrUrls,
+  isUrl,
+  downloadPageUrl
+} from '../util/index.js';
 import { reportOutputFilename } from '../constants.js';
 
 const debug = createDebug('report');
@@ -174,15 +181,15 @@ export async function reportFile(file: string, options: ReportOptions = {}): Pro
     return { file, issues, suggestion, patch, rawPatch };
   } catch (error: unknown) {
     let message = `Could not suggest or apply fix for '${file}': `;
-    
+
     if (error instanceof HTTPError) {
-      const details = JSON.parse(error.response.body as any ?? '{}');
-      message += details?.error ?? error.message ?? error;
+      const details = JSON.parse((error.response.body as string) ?? '{}') as Record<string, any>;
+      message += String(details?.error ?? error.message ?? error);
     } else {
       const error_ = error as Error;
       message = error_.message ?? error_;
     }
-    
+
     debug(message);
     throw new Error(message);
   }
