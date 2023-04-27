@@ -6,8 +6,9 @@ import createDebug from 'debug';
 import ora, { type Ora } from 'ora';
 import { suggestFix } from '../ai.js';
 import { generateColoredDiff, generatePatchDiff } from '../diff.js';
-import { askForConfirmation, resolveFilesOrUrls } from '../util.js';
+import { askForConfirmation, isUrl, resolveFilesOrUrls } from '../util.js';
 import { scanIssues } from '../axe.js';
+import { downloadPageUrl } from '../download.js';
 
 const debug = createDebug('fix');
 
@@ -69,7 +70,7 @@ export async function fixFile(file: string, options: FixOptions = {}): Promise<F
   let issues = options.issues ?? [];
 
   try {
-    const scan = issues.length === 0 && path.extname(file) === '.html';
+    const scan = issues.length === 0 && (path.extname(file) === '.html' || isUrl(file));
     if (scan) {
       debug(`Scanning for acessibility issues in '${file}'...`);
       const issueDetails = await scanIssues(file);
@@ -90,8 +91,8 @@ export async function fixFile(file: string, options: FixOptions = {}): Promise<F
     }
 
     debug(`Searching fixes for '${file}'...`);
-    const content = await fs.readFile(file, 'utf8');
-    const suggestion = await suggestFix(content, issues, options);
+    const content = isUrl(file) ? await downloadPageUrl(file) : await fs.readFile(file, 'utf8');
+    const suggestion = await suggestFix(file, content, issues, options);
     if (!suggestion) {
       debug(`No fix suggestion for '${file}'`);
       return { file, scanned: scan, issues, fixed: false };

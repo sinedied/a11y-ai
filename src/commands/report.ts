@@ -7,9 +7,10 @@ import AnsiToHtml from 'ansi-to-html';
 import ora from 'ora';
 import { generatePatchDiff } from '../diff.js';
 import { suggestFix } from '../ai.js';
-import { getPackageJson, escapeForHtml, resolveFilesOrUrls } from '../util.js';
+import { getPackageJson, escapeForHtml, resolveFilesOrUrls, isUrl } from '../util.js';
 import { reportOutputFilename } from '../constants.js';
 import { scanIssues } from '../axe.js';
+import { downloadPageUrl } from '../download.js';
 
 const debug = createDebug('report');
 
@@ -147,7 +148,8 @@ export async function generateMarkdownReport(reports: FileReport[]) {
 export async function reportFile(file: string, options: ReportOptions = {}): Promise<FileReport> {
   try {
     let issues = options.issues ?? [];
-    if (issues.length === 0) {
+    const scan = issues.length === 0 && (path.extname(file) === '.html' || isUrl(file));
+    if (scan) {
       debug(`Scanning for acessibility issues in '${file}'...`);
       const issueDetails = await scanIssues(file);
       issues = issueDetails.map((issue) => issue.help);
@@ -160,8 +162,8 @@ export async function reportFile(file: string, options: ReportOptions = {}): Pro
     }
 
     debug(`Searching fixes for '${file}'...`);
-    const content = await fs.readFile(file, 'utf8');
-    const suggestion = await suggestFix(content, issues, options);
+    const content = isUrl(file) ? await downloadPageUrl(file) : await fs.readFile(file, 'utf8');
+    const suggestion = await suggestFix(file, content, issues, options);
     if (!suggestion) {
       debug(`No fix suggestion for '${file}'`);
       return { file, issues };
