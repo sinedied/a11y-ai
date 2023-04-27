@@ -3,8 +3,8 @@ import process from 'node:process';
 import chalk from 'chalk';
 import createDebug from 'debug';
 import ora from 'ora';
-import { type AxeIssue, scanIssues } from '../axe.js';
-import { isUrl, resolveFilesOrUrls } from '../util.js';
+import { type AxeIssue, scanIssues } from '../core/index.js';
+import { isUrl, resolveFilesOrUrls } from '../util/index.js';
 
 const debug = createDebug('scan');
 

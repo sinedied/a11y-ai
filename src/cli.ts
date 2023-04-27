@@ -5,7 +5,7 @@ import debug from 'debug';
 import updateNotifier from 'update-notifier';
 import minimist from 'minimist';
 import { fix, report, scan } from './commands/index.js';
-import { getPackageJson } from './util.js';
+import { getPackageJson } from './util/index.js';
 
 dns.setDefaultResultOrder('ipv4first');
 

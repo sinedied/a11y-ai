@@ -1,9 +1,9 @@
 import process from 'node:process';
 import { got } from 'got';
 import createDebug from 'debug';
-import { apiUrl } from './constants.js';
-import { applyPatchDiff } from './diff.js';
-import { isUrl } from './util.js';
+import { apiUrl } from '../constants.js';
+import { applyPatchDiff } from '../util/index.js';
+// import { isUrl } from '../util/index.js';
 
 const debug = createDebug('ai');
 

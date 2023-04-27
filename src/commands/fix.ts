@@ -1,15 +1,12 @@
 import fs from 'node:fs/promises';
 import path from 'node:path';
 import process from 'node:process';
-import chalk from 'chalk';
 import createDebug from 'debug';
+import chalk from 'chalk';
 import ora, { type Ora } from 'ora';
-import { suggestFix } from '../ai.js';
-import { generateColoredDiff, generatePatchDiff } from '../diff.js';
-import { askForConfirmation, isUrl, resolveFilesOrUrls } from '../util.js';
-import { scanIssues } from '../axe.js';
-import { downloadPageUrl } from '../download.js';
 import { HTTPError } from 'got';
+import { scanIssues, suggestFix } from '../core/index.js';
+import { generateColoredDiff, generatePatchDiff, askForConfirmation, isUrl, resolveFilesOrUrls, downloadPageUrl } from '../util/index.js';
 
 const debug = createDebug('fix');
 

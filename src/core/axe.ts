@@ -3,7 +3,7 @@ import { fileURLToPath } from 'node:url';
 import process from 'node:process';
 import createDebug from 'debug';
 // import puppeteer from 'puppeteer';
-import { isHtmlPartial, isUrl, pathExists, runCommand } from './util.js';
+import { isHtmlPartial, isUrl, pathExists, runCommand } from '../util/index.js';
 
 const debug = createDebug('axe');
 const __dirname = dirname(fileURLToPath(import.meta.url));

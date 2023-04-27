@@ -5,13 +5,10 @@ import createDebug from 'debug';
 import chalk from 'chalk';
 import AnsiToHtml from 'ansi-to-html';
 import ora from 'ora';
-import { generatePatchDiff } from '../diff.js';
-import { suggestFix } from '../ai.js';
-import { getPackageJson, escapeForHtml, resolveFilesOrUrls, isUrl } from '../util.js';
-import { reportOutputFilename } from '../constants.js';
-import { scanIssues } from '../axe.js';
-import { downloadPageUrl } from '../download.js';
 import { HTTPError } from 'got';
+import { scanIssues, suggestFix } from '../core/index.js';
+import { generatePatchDiff, getPackageJson, escapeForHtml, resolveFilesOrUrls, isUrl, downloadPageUrl } from '../util/index.js';
+import { reportOutputFilename } from '../constants.js';
 
 const debug = createDebug('report');
 
