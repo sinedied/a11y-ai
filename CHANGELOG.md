@@ -1,3 +1,11 @@
+# [0.9.0](https://github.com/sinedied/a11y-ai/compare/0.8.1...0.9.0) (2023-04-27)
+
+
+### Features
+
+* add --issues, --context and --gpt-diff options ([78a74e5](https://github.com/sinedied/a11y-ai/commit/78a74e5e42926691324bfe6612e362cf4752f954))
+* allow scan to work with urls ([2e90503](https://github.com/sinedied/a11y-ai/commit/2e90503ddc8341c2a133e3393552aeb7b76fccd1))
+
 ## [0.8.1](https://github.com/sinedied/a11y-ai/compare/0.8.0...0.8.1) (2023-04-05)
 
 # [0.8.0](https://github.com/sinedied/a11y-ai/compare/0.7.0...0.8.0) (2023-04-05)
