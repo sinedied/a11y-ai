@@ -11,6 +11,7 @@ import { getPackageJson, escapeForHtml, resolveFilesOrUrls, isUrl } from '../uti
 import { reportOutputFilename } from '../constants.js';
 import { scanIssues } from '../axe.js';
 import { downloadPageUrl } from '../download.js';
+import { HTTPError } from 'got';
 
 const debug = createDebug('report');
 
@@ -175,8 +176,16 @@ export async function reportFile(file: string, options: ReportOptions = {}): Pro
     debug(patch);
     return { file, issues, suggestion, patch, rawPatch };
   } catch (error: unknown) {
-    const error_ = error as Error;
-    const message = `Could not suggest or apply fix for '${file}': ${error_.message ?? error_}`;
+    let message = `Could not suggest or apply fix for '${file}': `;
+    
+    if (error instanceof HTTPError) {
+      const details = JSON.parse(error.response.body as any ?? '{}');
+      message += details?.error ?? error.message ?? error;
+    } else {
+      const error_ = error as Error;
+      message = error_.message ?? error_;
+    }
+    
     debug(message);
     throw new Error(message);
   }

@@ -9,6 +9,7 @@ import { generateColoredDiff, generatePatchDiff } from '../diff.js';
 import { askForConfirmation, isUrl, resolveFilesOrUrls } from '../util.js';
 import { scanIssues } from '../axe.js';
 import { downloadPageUrl } from '../download.js';
+import { HTTPError } from 'got';
 
 const debug = createDebug('fix');
 
@@ -120,8 +121,16 @@ export async function fixFile(file: string, options: FixOptions = {}): Promise<F
     debug(`Applied fix for '${file}'`);
     return { file, scanned: scan, issues, fixed: true, accepted: true };
   } catch (error: unknown) {
-    const error_ = error as Error;
-    const message = `Could not suggest or apply fix for '${file}': ${error_.message ?? error_}`;
+    let message = `Could not suggest or apply fix for '${file}': `;
+    
+    if (error instanceof HTTPError) {
+      const details = JSON.parse(error.response.body as any ?? '{}');
+      message += details?.error ?? error.message ?? error;
+    } else {
+      const error_ = error as Error;
+      message = error_.message ?? error_;
+    }
+    
     debug(message);
     throw new Error(message);
   }
