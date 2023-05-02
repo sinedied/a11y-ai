@@ -33,6 +33,10 @@ export async function suggestFix(file: string, code: string, issues: string[] = 
     }
   });
   const json = JSON.parse(response.body) as FixResponse;
+  debug(`Received response from API:`);
+  debug(json);
+
+  debug(`Should apply patch diff: ${outputDiff}`);
   const suggestion = applyPatchDiff(code, json?.sourceCode, outputDiff);
   return suggestion;
 }

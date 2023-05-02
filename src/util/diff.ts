@@ -1,5 +1,8 @@
 import chalk from 'chalk';
+import createDebug from 'debug';
 import { applyPatch, createPatch, diffChars, parsePatch } from 'diff';
+
+const debug = createDebug('diff');
 
 export function generateColoredDiff(content: string, suggestion: string) {
   const diff = diffChars(content, suggestion);
@@ -22,14 +25,28 @@ export function applyPatchDiff(content: string, suggestion: string, isDiff = fal
     return suggestion;
   }
 
+  // Fix patch format when needed as GPT tends to add diff commands
+  // before the patch
+  if (!suggestion.startsWith('---')) {
+    debug(`Received patch needs fixing`)
+    const startIndex = suggestion.indexOf('---');
+    suggestion = suggestion.slice(startIndex);
+  }
+
   let finalSuggestion = content;
   const patches = parsePatch(suggestion);
+  debug(`Found ${patches.length} patch(es) to apply`);
 
   if (patches.length === 0) {
     throw new Error(`Could not parse patch suggestion`);
   } else {
     for (const patch of patches) {
       finalSuggestion = applyPatch(finalSuggestion, patch);
+      if (!finalSuggestion) {
+        throw new Error(`Could not apply patch suggestion: invalid format`);
+      } else {
+        debug(`Applied patch`);
+      }
     }
   }
 
