@@ -1,3 +1,11 @@
+# [0.10.0](https://github.com/sinedied/a11y-ai/compare/0.9.0...0.10.0) (2023-05-02)
+
+
+### Features
+
+* allow fix/report to work with online URLs ([8be14c0](https://github.com/sinedied/a11y-ai/commit/8be14c09bfd18a3e07d85d08d7fbb74991295af6))
+* improve error messages ([8f1bb9f](https://github.com/sinedied/a11y-ai/commit/8f1bb9fc6635dd1dd478c07195092ec391a740ba))
+
 # [0.9.0](https://github.com/sinedied/a11y-ai/compare/0.8.1...0.9.0) (2023-04-27)
 
 
