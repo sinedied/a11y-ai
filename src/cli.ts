@@ -15,20 +15,22 @@ If no files are specified, it will scan the current directory and
 subdirectories for HTML files.
 
 ${chalk.bold('Commands:')}
-  s, scan                 Scan files or URLs for accessibility issues
+  s, scan                     Scan files or URLs for accessibility issues
 
-  f, fix                  Fix accessibility issues interactively
-    -i, --issues <issues> Comma-separated list of issues to fix (disable scan)
-    -c, --char-diff       Use character diff instead of patch-like diff
-    -y, --yes             Apply fixes without prompting
-    --context <context>   Provide additional context
-    --gpt-diff            Make AI generate diff of fixes (experimental)
+  f, fix                      Fix accessibility issues interactively
+    -i, --issues <issues>     Comma-separated list of issues to fix (disable scan)
+    -s, --chunk-size <tokens> Set input chunk size (default: 1000)
+    -c, --char-diff           Use character diff instead of patch-like diff
+    -y, --yes                 Apply fixes without prompting
+    --context <context>       Provide additional context
+    --gpt-diff                Make AI generate diff of fixes (experimental)
 
-  r, report               Generate a report of issues with fix suggestions
-    -i, --issues <issues> Comma-separated list of issues to fix (disable scan)
-    -o, --format <format> Report format [html, md] (default: html)
-    --context <context>   Provide additional context
-    --gpt-diff            Make AI generate diff of fixes (experimental)
+  r, report                   Generate a report of issues with fix suggestions
+    -i, --issues <issues>     Comma-separated list of issues to fix (disable scan)
+    -s, --chunk-size <tokens> Set input chunk size (default: 1000)
+    -o, --format <format>     Report format [html, md] (default: html)
+    --context <context>       Provide additional context
+    --gpt-diff                Make AI generate diff of fixes (experimental)
 
 ${chalk.bold('General options:')}
   --api                   Use specified API URL
@@ -38,13 +40,14 @@ ${chalk.bold('General options:')}
 
 export async function run(args: string[]) {
   const options = minimist(args, {
-    string: ['format', 'api', 'issues', 'context'],
+    string: ['format', 'api', 'issues', 'context', 'chunk-size'],
     boolean: ['yes', 'verbose', 'version', 'help', 'char-diff', 'gpt-diff'],
     alias: {
       y: 'yes',
       c: 'char-diff',
       i: 'issues',
       o: 'format',
+      s: 'chunk-size',
       v: 'version'
     }
   });
@@ -82,7 +85,8 @@ export async function run(args: string[]) {
         patchDiff: !options['char-diff'],
         issues: (options.issues as string | undefined)?.split(','),
         context: options.context as string | undefined,
-        outputDiff: Boolean(options['gpt-diff'])
+        outputDiff: Boolean(options['gpt-diff']),
+        chunkSize: options['chunk-size'] !== undefined ? Number(options['chunk-size']) : undefined
       });
       break;
     }
@@ -99,7 +103,8 @@ export async function run(args: string[]) {
         format: options.format as 'html' | 'md',
         issues: (options.issues as string | undefined)?.split(','),
         context: options.context as string | undefined,
-        outputDiff: Boolean(options['gpt-diff'])
+        outputDiff: Boolean(options['gpt-diff']),
+        chunkSize: options['chunk-size'] !== undefined ? Number(options['chunk-size']) : undefined
       });
       break;
     }

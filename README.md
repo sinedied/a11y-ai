@@ -37,20 +37,22 @@ If no files are specified, it will scan the current directory and
 subdirectories for HTML files.
 
 Commands:
-  s, scan                 Scan files or URLs for accessibility issues
+  s, scan                     Scan files or URLs for accessibility issues
 
-  f, fix                  Fix accessibility issues interactively
-    -i, --issues <issues> Comma-separated list of issues to fix (disable scan)
-    -c, --char-diff       Use character diff instead of patch-like diff
-    -y, --yes             Apply fixes without prompting
-    --context <context>   Provide additional context
-    --gpt-diff            Make AI generate diff of fixes (experimental)
+  f, fix                      Fix accessibility issues interactively
+    -i, --issues <issues>     Comma-separated list of issues to fix (disable scan)
+    -s, --chunk-size <tokens> Set input chunk size (default: 1000)
+    -c, --char-diff           Use character diff instead of patch-like diff
+    -y, --yes                 Apply fixes without prompting
+    --context <context>       Provide additional context
+    --gpt-diff                Make AI generate diff of fixes (experimental)
 
-  r, report               Generate a report of issues with fix suggestions
-    -i, --issues <issues> Comma-separated list of issues to fix (disable scan)
-    -o, --format <format> Report format [html, md] (default: html)
-    --context <context>   Provide additional context
-    --gpt-diff            Make AI generate diff of fixes (experimental)
+  r, report                   Generate a report of issues with fix suggestions
+    -i, --issues <issues>     Comma-separated list of issues to fix (disable scan)
+    -s, --chunk-size <tokens> Set input chunk size (default: 1000)
+    -o, --format <format>     Report format [html, md] (default: html)
+    --context <context>       Provide additional context
+    --gpt-diff                Make AI generate diff of fixes (experimental)
 
 General options:
   --api                   Use specified API URL

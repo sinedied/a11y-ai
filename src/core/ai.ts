@@ -2,7 +2,7 @@ import process from 'node:process';
 import { got } from 'got';
 import createDebug from 'debug';
 import { HTTPError } from 'got';
-import { apiUrl } from '../constants.js';
+import { apiUrl, maxChunkTokenSize } from '../constants.js';
 import { applyPatchDiff } from '../util/index.js';
 import { preprocessInput } from './preprocess.js';
 
@@ -14,6 +14,7 @@ const timeoutRegex = /The operation was timeout/mi;
 export type FixSettings = {
   context?: string;
   outputDiff?: boolean;
+  chunkSize?: number;
 };
 
 export type FixResponse = {
@@ -32,7 +33,7 @@ export async function suggestFix(file: string, code: string, issues: string[] = 
   const url = process.env.A11Y_API_URL ?? apiUrl;
   debug(`Using a11y API URL: ${url}`);
 
-  const chunks = preprocessInput(file, code);
+  const chunks = preprocessInput(file, code, options.chunkSize ?? maxChunkTokenSize);
   debug(`Preprocessed input into ${chunks.length} chunk(s)`);
 
   const suggestions: string[] = [];

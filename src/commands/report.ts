@@ -24,6 +24,7 @@ export type ReportOptions = {
   issues?: string[];
   context?: string;
   outputDiff?: boolean;
+  chunkSize?: number;
 };
 
 export type FileReport = {

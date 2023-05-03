@@ -81,5 +81,5 @@ export function removeScriptTags(content: string): string {
 }
 
 export function removeEmptyLines(content: string): string {
-  return content//.replace(/^\s*[\r\n]/gm, '');
+  return content;//.replace(/^\s*[\r\n]/gm, '');
 }

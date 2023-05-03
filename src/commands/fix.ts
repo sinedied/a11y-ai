@@ -24,6 +24,7 @@ export type FixOptions = {
   issues?: string[];
   context?: string;
   outputDiff?: boolean;
+  chunkSize?: number;
   spinner?: Ora;
 };
 
