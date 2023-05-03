@@ -86,7 +86,7 @@ export async function run(args: string[]) {
         issues: (options.issues as string | undefined)?.split(','),
         context: options.context as string | undefined,
         outputDiff: Boolean(options['gpt-diff']),
-        chunkSize: options['chunk-size'] !== undefined ? Number(options['chunk-size']) : undefined
+        chunkSize: options['chunk-size'] === undefined ? undefined : Number(options['chunk-size'])
       });
       break;
     }
@@ -104,7 +104,7 @@ export async function run(args: string[]) {
         issues: (options.issues as string | undefined)?.split(','),
         context: options.context as string | undefined,
         outputDiff: Boolean(options['gpt-diff']),
-        chunkSize: options['chunk-size'] !== undefined ? Number(options['chunk-size']) : undefined
+        chunkSize: options['chunk-size'] === undefined ? undefined : Number(options['chunk-size'])
       });
       break;
     }

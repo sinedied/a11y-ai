@@ -1,6 +1,6 @@
 import createDebug from 'debug';
-import { encoding_for_model } from "@dqbd/tiktoken";
-import { maxChunkTokenSize } from "../constants.js";
+import { encoding_for_model } from '@dqbd/tiktoken';
+import { maxChunkTokenSize } from '../constants.js';
 
 const debug = createDebug('preprocess');
 
@@ -23,32 +23,36 @@ export function preprocessInput(file: string, code: string, maxTokens: number = 
   debug(`Input tokens after removing empty lines: ${tokens}`);
 
   if (tokens <= maxTokens) {
-    return [{
-      code: newCode,
-      tokens
-    }];
+    return [
+      {
+        code: newCode,
+        tokens
+      }
+    ];
   }
-  
+
   // Chunk input into multiple parts
-  const chunks = splitInput(newCode, maxTokens)
-  .map(chunk => {
+  const chunks = splitInput(newCode, maxTokens).map((chunk) => {
     return {
       code: chunk,
       tokens: countTokens(chunk)
-    }
+    };
   });
-  debug(`Input split into ${chunks.length} chunks with token lengths: ${chunks.map(chunk => chunk.tokens).join(', ')}`)
+  debug(
+    `Input split into ${chunks.length} chunks with token lengths: ${chunks.map((chunk) => chunk.tokens).join(', ')}`
+  );
   return chunks;
 }
 
 export function splitInput(input: string, maxTokens: number): string[] {
   let remainingInput = input;
-  let chunks: string[] = [];
-  
+  const chunks: string[] = [];
+
   do {
     const tokens = countTokens(remainingInput);
     const remainingChunks = Math.ceil(tokens / maxTokens);
-    const maxIndex = remainingChunks === 1 ? remainingInput.length : Math.floor(remainingInput.length / remainingChunks);
+    const maxIndex =
+      remainingChunks === 1 ? remainingInput.length : Math.floor(remainingInput.length / remainingChunks);
     const splitIndex = remainingChunks === 1 ? remainingInput.length : remainingInput.lastIndexOf('<', maxIndex);
 
     if (splitIndex <= 0) {
@@ -70,7 +74,7 @@ export function checkTokenLimits(content: string, maxToken: number): boolean {
 }
 
 export function countTokens(content: string): number {
-  const encoder = encoding_for_model("gpt-4");
+  const encoder = encoding_for_model('gpt-4');
   const tokens = encoder.encode(content);
   encoder.free();
   return tokens.length;
@@ -81,5 +85,5 @@ export function removeScriptTags(content: string): string {
 }
 
 export function removeEmptyLines(content: string): string {
-  return content;//.replace(/^\s*[\r\n]/gm, '');
+  return content; // .replace(/^\s*[\r\n]/gm, '');
 }
