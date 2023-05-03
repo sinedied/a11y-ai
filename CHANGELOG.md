@@ -1,3 +1,11 @@
+# [0.12.0](https://github.com/sinedied/a11y-ai/compare/0.11.0...0.12.0) (2023-05-03)
+
+
+### Features
+
+* restore custom rules for partials ([b7f24f6](https://github.com/sinedied/a11y-ai/commit/b7f24f677912c9362d53d9e5eefe6b66ec8c632f))
+* switch to Playwright for issue scanning ([8fbd6c6](https://github.com/sinedied/a11y-ai/commit/8fbd6c6e331913b86e606319a6c5829986b27bb6))
+
 # [0.11.0](https://github.com/sinedied/a11y-ai/compare/0.10.0...0.11.0) (2023-05-03)
 
 
