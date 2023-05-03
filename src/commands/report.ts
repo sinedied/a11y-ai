@@ -168,15 +168,15 @@ export async function reportFile(file: string, options: ReportOptions = {}): Pro
 
     debug(`Searching fixes for '${file}'...`);
     const content = isUrl(file) ? await downloadPageUrl(file) : await fs.readFile(file, 'utf8');
-    const suggestion = await suggestFix(file, content, issues, options);
+    const { code, suggestion } = await suggestFix(file, content, issues, options);
     if (!suggestion) {
       debug(`No fix suggestion for '${file}'`);
       return { file, issues };
     }
 
     debug(`Suggested fix for '${file}':`);
-    const patch = generatePatchDiff(file, content, suggestion);
-    const rawPatch = generatePatchDiff(file, content, suggestion, false);
+    const patch = generatePatchDiff(file, code, suggestion);
+    const rawPatch = generatePatchDiff(file, code, suggestion, false);
     debug(patch);
     return { file, issues, suggestion, patch, rawPatch };
   } catch (error: unknown) {

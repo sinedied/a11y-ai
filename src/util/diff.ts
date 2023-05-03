@@ -3,6 +3,7 @@ import createDebug from 'debug';
 import { applyPatch, createPatch, diffChars, parsePatch } from 'diff';
 
 const debug = createDebug('diff');
+const fuzzFactor = 1000;
 
 export function generateColoredDiff(content: string, suggestion: string) {
   const diff = diffChars(content, suggestion);
@@ -25,8 +26,7 @@ export function applyPatchDiff(content: string, suggestion: string, isDiff = fal
     return suggestion;
   }
 
-  // Fix patch format when needed as GPT tends to add diff commands
-  // before the patch
+  // Fix patch format when needed as GPT tends to add diff commands before the patch
   if (!suggestion.startsWith('---')) {
     debug(`Received patch needs fixing`)
     const startIndex = suggestion.indexOf('---');
@@ -41,8 +41,12 @@ export function applyPatchDiff(content: string, suggestion: string, isDiff = fal
     throw new Error(`Could not parse patch suggestion`);
   } else {
     for (const patch of patches) {
-      finalSuggestion = applyPatch(finalSuggestion, patch);
+      finalSuggestion = applyPatch(finalSuggestion, patch, { fuzzFactor });
       if (!finalSuggestion) {
+        if (createDebug.enabled('diff')) {
+          console.log(`Original code:------------------\n${content}`);
+          console.log(`Suggestion:---------------------\n${suggestion}`);
+        }
         throw new Error(`Could not apply patch suggestion: invalid format`);
       } else {
         debug(`Applied patch`);
@@ -93,4 +97,13 @@ export function generatePatchDiff(file: string, content: string, suggestion: str
   }
 
   return diff;
+}
+
+export function patchOriginalContent(file: string, content: string, processedContent: string, suggestion: string) {
+  const patch = createPatch(file, processedContent, suggestion);
+  const patchedContent = applyPatch(content, patch, { fuzzFactor });
+  if (!patchedContent) {
+    throw new Error(`Could not patch original content with suggestion`);
+  }
+  return patchedContent;
 }

@@ -12,7 +12,8 @@ import {
   askForConfirmation,
   isUrl,
   resolveFilesOrUrls,
-  downloadPageUrl
+  downloadPageUrl,
+  patchOriginalContent
 } from '../util/index.js';
 
 const debug = createDebug('fix');
@@ -97,7 +98,7 @@ export async function fixFile(file: string, options: FixOptions = {}): Promise<F
 
     debug(`Searching fixes for '${file}'...`);
     const content = isUrl(file) ? await downloadPageUrl(file) : await fs.readFile(file, 'utf8');
-    const suggestion = await suggestFix(file, content, issues, options);
+    const { code, suggestion } = await suggestFix(file, content, issues, options);
     if (!suggestion) {
       debug(`No fix suggestion for '${file}'`);
       return { file, scanned: scan, issues, fixed: false };
@@ -117,13 +118,15 @@ export async function fixFile(file: string, options: FixOptions = {}): Promise<F
       }
 
       console.info();
-      const result = await interactiveFix(file, content, suggestion, options);
+      const result = await interactiveFix(file, code, suggestion, options);
       return { file, scanned: scan, issues, fixed: true, accepted: result };
     }
 
     debug(`Suggested fix for '${file}':`);
-    debug(generatePatchDiff(file, content, suggestion));
-    await fs.writeFile(file, suggestion);
+    debug(generatePatchDiff(file, code, suggestion));
+    const patchedContent = patchOriginalContent(file, content, code, suggestion);
+    await fs.writeFile(file, patchedContent);
+
     debug(`Applied fix for '${file}'`);
     return { file, scanned: scan, issues, fixed: true, accepted: true };
   } catch (error: unknown) {

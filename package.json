@@ -36,6 +36,7 @@
   },
   "dependencies": {
     "@axe-core/cli": "^4.6.0",
+    "@dqbd/tiktoken": "^1.0.6",
     "ansi-to-html": "^0.7.2",
     "chalk": "^5.2.0",
     "chromedriver": "^111.0.0",
