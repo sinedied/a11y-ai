@@ -80,9 +80,9 @@ You can also set the API URL using the `A11Y_AI_API` environment variable.
   a11y
   ```
 
-## Troubleshooting
+### Accessibility issues scanning 
 
-WIP
+Accessibility issues scan is done using [Playwright](https://playwright.dev/) with the [axe-playwright](https://www.npmjs.com/package/axe-playwright) plugin.
 
 <!-- ## Automated reports
 
@@ -90,9 +90,7 @@ You can generate a report of all the issues found in your project automatically 
 
 You can see a complete [example workflow](https://github.com/sinedied/a11y-ai/blob/main/.github/workflows/action.yml) in action on this repository. -->
 
-## Limitations
+## Known limitations
 
-- Windows support outside of WSL2 is currently not working due to a bug in Axe CLI (WIP)
-- It needs a matching Chrome version to work (WIP)
 - Issue scanning is only supported for HTML files, not for JS/TS components (but fixing is supported)
 - `--gpt-diff` options is experimental and may not work well in some cases

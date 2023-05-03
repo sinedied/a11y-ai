@@ -67,7 +67,7 @@ export async function run(args: string[]) {
   }
 
   if (options.verbose) {
-    debug.enable('*,-puppeteer:*');
+    debug.enable('*,-puppeteer:*,-babel:*,-pw:*,-agentkeepalive');
   }
 
   if (options.api) {

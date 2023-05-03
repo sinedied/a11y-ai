@@ -35,11 +35,11 @@
     "xo": "^0.53.1"
   },
   "dependencies": {
-    "@axe-core/cli": "^4.6.0",
     "@dqbd/tiktoken": "^1.0.6",
+    "@playwright/test": "^1.33.0",
     "ansi-to-html": "^0.7.2",
+    "axe-playwright": "^1.2.3",
     "chalk": "^5.2.0",
-    "chromedriver": "^111.0.0",
     "debug": "^4.3.4",
     "diff": "^5.1.0",
     "fast-glob": "^3.2.12",
@@ -87,6 +87,7 @@
   },
   "files": [
     "bin",
-    "lib"
+    "lib",
+    "scan"
   ]
 }
