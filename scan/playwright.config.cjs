@@ -1,4 +1,5 @@
 // @ts-check
+const process = require('node:process');
 const { defineConfig, devices } = require('@playwright/test');
 
 module.exports = defineConfig({
@@ -11,7 +12,7 @@ module.exports = defineConfig({
   projects: [
     {
       name: 'chromium',
-      use: { ...devices['Desktop Chrome'] },
-    },
-  ],
+      use: { ...devices['Desktop Chrome'] }
+    }
+  ]
 });

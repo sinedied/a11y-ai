@@ -33,10 +33,14 @@ export async function scanIssues(file: string): Promise<AxeIssue[]> {
 
     const command = `npx playwright test --config "${configPath}"`;
     debug(`Running command: ${command}`);
-    const stdout = await runCommand(command, {
-      [urlEnvProperty]: inputFilePath,
-      [disabledRulesEnvProperty]: disabledRules
-    }, true);
+    const stdout = await runCommand(
+      command,
+      {
+        [urlEnvProperty]: inputFilePath,
+        [disabledRulesEnvProperty]: disabledRules
+      },
+      true
+    );
     const issues = getViolationFromOutput(stdout);
     debug(`Found ${issues.length} issues`);
     debug('Issues details: %o', issues);
@@ -55,6 +59,7 @@ function getViolationFromOutput(output: string): AxeIssue[] {
     console.log(output);
     throw new Error('Could not find issues in command output');
   }
+
   const rawIssues = match[1];
   const issues = JSON.parse(rawIssues) as AxeIssue[];
   return issues;
