@@ -1,3 +1,12 @@
+# [0.11.0](https://github.com/sinedied/a11y-ai/compare/0.10.0...0.11.0) (2023-05-03)
+
+
+### Features
+
+* add --chunk-size option ([00ae792](https://github.com/sinedied/a11y-ai/commit/00ae7928553e6001f427b0f06b141b21409c8e33))
+* add input chunking and retries ([3ed22d6](https://github.com/sinedied/a11y-ai/commit/3ed22d68246c95a6c9eb5c644a22016da35e5115))
+* improve --gpt-diff behavior and logs ([2e273e6](https://github.com/sinedied/a11y-ai/commit/2e273e6cc03ab70289b8cef7d4662906ff8c6287))
+
 # [0.10.0](https://github.com/sinedied/a11y-ai/compare/0.9.0...0.10.0) (2023-05-02)
 
 
