@@ -32,15 +32,17 @@ export async function suggestFix(file: string, code: string, issues: string[] = 
   const context = options.context ?? undefined;
   const url = process.env.A11Y_API_URL ?? apiUrl;
   debug(`Using a11y API URL: ${url}`);
-
+  
   const chunks = preprocessInput(file, code, options.chunkSize ?? maxChunkTokenSize);
   debug(`Preprocessed input into ${chunks.length} chunk(s)`);
-
+  
   const suggestions: string[] = [];
   const patches: string[] | undefined = outputDiff ? [] : undefined;
+  const now = Date.now();
   
   // Serialize the requests to avoid hitting the rate limit, even though it's (way) slower
   for (let index = 0; index < chunks.length; index++) {
+    const startTime = Date.now();
     const chunk = chunks[index];
     debug(`Requesting fix for chunk ${index + 1}/${chunks.length}`);
 
@@ -76,7 +78,11 @@ export async function suggestFix(file: string, code: string, issues: string[] = 
 
     // debug(`Suggestion for chunk ${index}:\n${chunkSuggestion}`);
     suggestions.push(chunkSuggestion);
+
+    debug(`Chunk ${index + 1}/${chunks.length} took ${(Date.now() - startTime)/1000}s to process`);
   }
+
+  debug(`Received ${suggestions.length} suggestion(s) in ${(Date.now() - now)/1000}s`);
 
   const result = {
     code: chunks.map(chunk => chunk.code).join(''),
