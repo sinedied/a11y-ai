@@ -6,6 +6,7 @@ import { isHtmlPartial, isUrl, pathExists, runCommand } from '../util/index.js';
 const debug = createDebug('axe');
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const urlEnvProperty = 'A11Y_AI_URL';
+const disabledRulesEnvProperty = 'A11Y_AI_DISABLED_RULES';
 const configPath = path.resolve(__dirname, '../../scan/playwright.config.cjs');
 const issuesRegex = /===ISSUES_BEGIN===\n([\s\S]*?)===ISSUES_END===/m;
 
@@ -23,19 +24,19 @@ export async function scanIssues(file: string): Promise<AxeIssue[]> {
   try {
     const isFileUrl = isUrl(file);
     const inputFilePath = isFileUrl ? file : `file://${path.resolve(file)}`;
+    let disabledRules = '';
+    const isPartial = !isFileUrl && (await isHtmlPartial(file));
 
-
-
-    // TODO!!!!!
-    // const isPartial = !isFileUrl && (await isHtmlPartial(file));
-    // if (isPartial) {
-    //   // Disable rules that require a full HTML document
-    //   axeOptions.push('--disable html-has-lang,document-title,landmark-one-main,region,page-has-heading-one');
-    // }
+    if (isPartial) {
+      disabledRules = 'html-has-lang,document-title,landmark-one-main,region,page-has-heading-one';
+    }
 
     const command = `npx playwright test --config "${configPath}"`;
     debug(`Running command: ${command}`);
-    const stdout = await runCommand(command, { [urlEnvProperty]: inputFilePath }, true);
+    const stdout = await runCommand(command, {
+      [urlEnvProperty]: inputFilePath,
+      [disabledRulesEnvProperty]: disabledRules
+    }, true);
     const issues = getViolationFromOutput(stdout);
     debug(`Found ${issues.length} issues`);
     debug('Issues details: %o', issues);
