@@ -96,7 +96,7 @@ export async function suggestFix(file: string, code: string, issues: string[] = 
 async function retryWithinLimits<T>(fn: () => Promise<T>, maxRetries = 3) {
   let retries = 0;
   let result: T | undefined;
-  let requestError: Error;
+  let requestError: Error | undefined;
 
   while (retries < maxRetries) {
     try {
@@ -137,7 +137,7 @@ async function retryWithinLimits<T>(fn: () => Promise<T>, maxRetries = 3) {
   }
 
   if (!result) {
-    throw requestError;
+    throw requestError!;
   }
 
   return result;
