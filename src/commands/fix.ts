@@ -28,7 +28,7 @@ export type FixOptions = {
   spinner?: Ora;
 };
 
-export type FixResult = {
+export type FixFileResult = {
   file: string;
   scanned: boolean;
   issues: string[];
@@ -72,7 +72,7 @@ export async function fix(files: string[], options: FixOptions = {}) {
   }
 }
 
-export async function fixFile(file: string, options: FixOptions = {}): Promise<FixResult> {
+export async function fixFile(file: string, options: FixOptions = {}): Promise<FixFileResult> {
   const interactive = options.interactive ?? true;
   let issues = options.issues ?? [];
 
