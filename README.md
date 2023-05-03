@@ -12,16 +12,6 @@
 
 *Can I help fixing your a11y issues?*
 
-## Quickstart
-
-Run it directly on your project without installing it:
-
-```bash
-npx a11y-ai
-```
-
-It will scan for all HTML files in the current directory and subdirectories, and will interactively ask you to apply each suggestions found.
-
 ## Installation
 
 ```bash
@@ -62,15 +52,47 @@ General options:
 
 You can also set the API URL using the `A11Y_AI_API` environment variable.
 
-## Automated reports
+### Examples
+
+- Interactively scan & fix a local file:
+
+  ```bash
+  a11y fix site.html
+  ```
+
+- Generate a report of issues with fix suggestions for multiple URLs:
+
+  ```bash
+  a11y report https://microsoft.com https://docs.microsoft.com
+  ```
+
+- Interactively fix specific issues with additional context:
+
+  ```bash
+  a11y fix doc.html \
+    --issues "Add missing images alt attributes" \
+    --context "This is a documentation where screenshots shows the different step to setup GitHub Copilot on your account" 
+  ```
+
+- Automagicically scan for all HTML files in the current directory and subdirectories, interactively fix the issues:
+
+  ```bash
+  a11y
+  ```
+
+## Troubleshooting
+
+WIP
+
+<!-- ## Automated reports
 
 You can generate a report of all the issues found in your project automatically on your CI/CD using this GitHub Action: [sinedied/a11y-ai-action](https://github.com/sinedied/a11y-ai-action)
 
-You can see a complete [example workflow](https://github.com/sinedied/a11y-ai/blob/main/.github/workflows/action.yml) in action on this repository.
+You can see a complete [example workflow](https://github.com/sinedied/a11y-ai/blob/main/.github/workflows/action.yml) in action on this repository. -->
 
 ## Limitations
 
 - Windows support outside of WSL2 is currently not working due to a bug in Axe CLI (WIP)
-- If file is too large, the API will return an error 500 (WIP)
 - It needs a matching Chrome version to work (WIP)
-- Issue scanning is only supported for HTML files, not for JS/TS components
+- Issue scanning is only supported for HTML files, not for JS/TS components (but fixing is supported)
+- `--gpt-diff` options is experimental and may not work well in some cases
