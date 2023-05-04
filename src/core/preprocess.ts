@@ -81,7 +81,7 @@ export function countTokens(content: string): number {
 }
 
 export function removeScriptTags(content: string): string {
-  return content.replace(/<script[\s\S]*?<\/script>/gi, '<!-- script removed -->');
+  return content.replace(/<script[\s\S]*?<\/script>/gim, '<!-- script removed -->');
 }
 
 export function removeEmptyLines(content: string): string {
