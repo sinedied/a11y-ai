@@ -4,6 +4,7 @@ coverage/
 report/
 repo/
 lib/
+tmp/
 *.log
 *.tgz
 .DS_Store
