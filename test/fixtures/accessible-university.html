@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Accessible University Demo Site - Inaccessible Version</title>
+  <link rel="apple-touch-icon" sizes="180x180" href="images/favicon/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="images/favicon/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="images/favicon/favicon-16x16.png">
+  <link href="styles/au-shared.css" rel="stylesheet">
+  <link href="styles/main.css" rel="stylesheet">
+	<link href="styles/before-main.css" rel="stylesheet">
+	<link href="styles/before-menu.css" rel="stylesheet">
+	<link href="styles/before-form.css" rel="stylesheet">
+	<link href="styles/before-modal.css" rel="stylesheet">
+	<link href="styles/before-carousel.css" rel="stylesheet">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+	<script src="scripts/before-menu.js"></script>
+	<script src="scripts/before-form.js"></script>
+	<script src="scripts/before-modal.js"></script>
+	<script src="scripts/before-carousel.js"></script>
+</head>
+<body>
+  <div id="content">
+
+    <div id="banner">
+      <img id="logo" src="images/au123456789.gif" alt="au123456789.gif" width="441" height="90">
+      <nav id="AU-menu" aria-label="Demo site menu">
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="before.html" aria-current="page">Before</a></li>
+          <li><a href="after.html">After</a></li>
+          <li><a href="info.html">Info</a></li>
+        </ul>
+      </nav>
+    </div>
+
+    <ul id="menu">
+      <li><a href="#">About</a>
+        <ul>
+          <li><a href="somepage.html?ref=News">News</a></li>
+          <li><a href="somepage.html?ref=Governance">Governance</a></li>
+          <li><a href="somepage.html?ref=Diversity">Diversity</a></li>
+          <li><a href="somepage.html?ref=Contact%20Us">Contact Us</a></li>
+        </ul>
+      </li>
+      <li><a href="#">Academics</a>
+        <ul>
+          <li><a href="somepage.html?ref=Degree%20Programs">Degree Programs</a></li>
+          <li><a href="somepage.html?ref=AU%20Faculty">AU Faculty</a></li>
+          <li><a href="somepage.html?ref=Distance%20Learning">Distance Learning</a></li>
+          <li><a href="somepage.html?ref=Libraries">Libraries</a></li>
+        </ul>
+      </li>
+      <li><a href="#">Admissions</a>
+        <ul>
+          <li><a href="somepage.html?ref=Undergraduate">Undergraduate</a></li>
+          <li><a href="somepage.html?ref=Graduate">Graduate</a></li>
+          <li><a href="somepage.html?ref=Tuition">Tuition</a></li>
+          <li><a href="somepage.html?ref=Financial%20Aid">Financial Aid</a></li>
+        </ul>
+      </li>
+      <li><a href="#">Visitors</a>
+        <ul>
+          <li><a href="somepage.html?ref=Events">Events</a></li>
+          <li><a href="somepage.html?ref=Campus_Map">Campus Map</a></li>
+          <li><a href="somepage.html?ref=Parking">Parking</a></li>
+        </ul>
+      </li>
+    </ul>
+
+    <div id="main">
+
+      <div id="carousel">
+        <div id="controls">
+          <div id="btn-prev"></div>
+          <div id="btn-next"></div>
+        </div>
+        <div id="slides">
+          <div class="slide">
+            <img src="images/carousel/slide1.jpg">
+            <div class="caption">A modern shool</div>
+          </div>
+          <div class="slide">
+            <img src="images/carousel/slide2.jpg">
+            <div class="caption">rooted in its history</div>
+          </div>
+          <div class="slide">
+            <img src="images/carousel/slide3.jpg">
+            <div class="caption">with opportunities to learn</div>
+          </div>
+          <div class="slide">
+            <img src="images/carousel/slide4.jpg">
+            <div class="caption">and grow.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="heading">Welcome!</div>
+      <p>Accessible University (AU) is a fictional university, and this is its
+        fictional home page. This page is designed to demonstrate a variety of
+        common web design problems that result in visitors with disabilities
+        being unable to access the content or features of a web page.
+        Although the heading at the top of this section of the page
+        suggests that AU may be a welcoming institution,
+        the inaccessible design of this page sends the opposite message.
+      </p>
+
+      <img class="hr" src="images/line_gradient.gif" alt="horizontal line graphic">
+
+      <div class="heading">Bienvenido!</div>
+      <p>Accesible Universidad (UA) es una universidad ficticia, y esta es su
+        página de ficción. Esta página está diseñada para demostrar una variedad de
+        común de diseño web que se traducen en problemas de los visitantes con discapacidad
+        no poder acceder al contenido o las características de una página web.
+        Aunque el título en la parte superior de esta sección de la página
+        sugiere que AU puede ser una institución de bienvenida,
+        el diseño inaccesible de esta página envía el mensaje opuesto.
+      </p>
+
+      <img class="hr" src="images/line_gradient.gif" alt="horizontal line graphic">
+
+      <div class="heading">Can you spot the barriers?</div>
+      <p>There are at least 22 accessibility issues on this page.
+        To see a list of all known issues, <a href="info.html">click here</a>.
+        To see a more accessible version of this same page, <a href="after.html">click here</a>.
+        For a cheat sheet of accessibility issues, <a href="cheatsheet.html">click here</a>.
+      </p>
+
+      <img class="hr" src="images/line_gradient.gif" alt="horizontal line graphic">
+
+      <div class="heading">AU Enrollment Trends</div>
+      <table id="enrollment">
+        <tr>
+          <td class="corner" rowspan="2" style="width:6em"></td>
+          <td colspan="5" style="text-align:center"><b>Last Year</b></td>
+          <td colspan="5" style="text-align:center"><b>This Year</b></td>
+        </tr>
+        <tr>
+          <td><b>CS</b></td>
+          <td><b>Eng</b></td>
+          <td><b>Eco</b></td>
+          <td><b>Phy</b></td>
+          <td><b>Psy</b></td>
+          <td><b>CS</b></td>
+          <td><b>Eng</b></td>
+          <td><b>Eco</b></td>
+          <td><b>Phy</b></td>
+          <td><b>Psy</b></td>
+        </tr>
+        <tr>
+          <td><b>Undergraduate</b></td>
+          <!--Last Year-->
+          <td>1481</td>
+          <td>400</td>
+          <td>727</td>
+          <td>747</td>
+          <td>1006</td>
+          <!--This Year-->
+          <td>1500</td><!-- CS enrollment is the most popular, and climbing -->
+          <td>340</td><!-- English enrollment is dropping -->
+          <td>777</td><!-- Economics enrollment is climbing -->
+          <td>787</td><!-- Physics is growing steadily -->
+          <td>1112</td><!-- Psychology is climbing -->
+        </tr>
+        <tr>
+          <td><b>Graduate</b></td>
+          <!--Last Year-->
+          <td>310</td>
+          <td>84</td>
+          <td>273</td>
+          <td>69</td>
+          <td>312</td>
+          <!--This Year-->
+          <td>350</td><!-- CS capped at maximum enrollment-->
+          <td>64</td><!-- waining interest in graduate studies in English -->
+          <td>341</td><!-- solid growth in Economics / business -->
+          <td>72</td><!-- slight increase in Physics -->
+          <td>325</td><!-- strong, slightly growing psych program -->
+        </tr>
+      </table>
+
+      <img class="hr" src="images/line_gradient.gif" alt="horizontal line graphic">
+
+      <div class="heading">AU Video</div>
+      <video src="video/au-promo.mp4" poster="video/au-promo.jpg" controls></video>
+
+    </div><!--end #main-->
+
+    <div id="appForm">
+
+      <div class="heading">Apply Now!</div>
+        <p class="required reqExample">(required fields are in blue)</p>
+
+      <form action="#" method="post">
+
+        <!-- container for displaying form errors -->
+        <div id="error"></div>
+
+        <div class="required">
+          Name:
+          <input type="text" name="name"/>
+        </div>
+
+        <div class="required">
+          Email:
+          <input type="text" name="email"/>
+        </div>
+
+        <div>
+          Country:
+          <input type="text" name="country"/>
+        </div>
+
+        <div><b>Desired major(s):</b></div>
+
+        <div id="majors">
+          <div class="major">Computer Science <input type="checkbox" name="major_cs"/></div>
+          <div class="major">Engineering <input type="checkbox" name="major_eng"/></div>
+          <div class="major">Economics <input type="checkbox" name="major_econ"/></div>
+          <div class="major">Physics <input type="checkbox" name="major_phy"/></div>
+          <div class="major">Psychology <input type="checkbox" name="major_psy"/></div>
+          <div class="major">Spanish <input type="checkbox" name="major_sp"/></div>
+        </div>
+
+        <div id="captcha">
+          <b>Security Test</b>
+          <p>Please enter the two words you see below, separated by a space</p>
+          <input type="text" name="captcha">
+          <img src="images/captcha.png">
+        </div>
+
+        <div>
+          <input id="submit" type="submit" name="submit" value="Submit" />
+        </div>
+
+      </form>
+
+    </div><!--end #sidebar-->
+
+    <div id="footer">
+      <footer>
+        <div id="license">
+          <div id="ccLogo">    
+            <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-sa/4.0/88x31.png"></a>
+          </div>
+          <span xmlns:dct="http://purl.org/dc/terms/" property="dct:title">Accessible University</span> by <a xmlns:cc="http://creativecommons.org/ns#" href="http://washington.edu/accesscomputing/AU" property="cc:attributionName" rel="cc:attributionURL">University of Washington</a> is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/">Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License</a>.
+        </div>
+        <p>This product was originally developed with support from the National Institute on Disability and Rehabilitation Research of the U.S. Department of Education (grant #H133D010306), and has been subsequently updated and maintained with support from the National Science Foundation (grants #CNS-0540615, CNS-0837508, CNS-1042260, CNS-1539179, and CNS-2137312). The contents do not necessarily represent the policies of the U.S. federal government, and you should not assume their endorsement.</p>
+      </footer>
+    </div>      
+
+  </div><!--end #content-->
+
+  <!--containers for displaying modal content-->
+  <div id="modalMask"></div>
+  <div id="modalContent">
+    <div class="modalHeading">Accessibility Issues</div>
+    <button type="button" id="modalClose">x</button>
+    <ol>
+      <!-- Structure -->
+      <li>Missing landmark regions</li>
+      <li>No headings</li>
+      <li>Language not specified</li>
+      <!-- Images -->
+      <li>No alternate text on informative images</li>
+      <li>Missing or excessive alternate text on decorative images</li>
+      <!-- Color-->
+      <li>Insufficient color contrast</li>
+      <li>Color used to communicate information</li>
+      <!-- Keyboard-->
+      <li>Inaccessible keyboard interface</li>
+      <li>No visible indication of focus</li>
+      <li>No "skip to main content" link</li>
+      <!-- Links-->
+      <li>Redundant, uninformative link text</li>
+      <li>Links vs buttons</li>
+      <!-- Features -->
+      <li>Inaccessible navigation menu</li>
+      <li>Inaccessible carousel</li>
+      <li>Inaccessible modal dialog</li>
+      <!-- Forms -->
+      <li>Form not properly labeled</li>
+      <li>Inaccessible CAPTCHA</li>
+      <li>Inaccessible input validation</li>
+      <!-- Tables -->
+      <li>Missing accessible table markup</li>
+      <li>Missing abbreviation tags</li>
+      <!-- Video -->
+      <li>Inaccessible audio content in video</li>
+      <li>Inaccessible visual content in video</li> 
+    </ol>
+    <button type="button" id="modalOk">OK</button>
+  </div>
+
+</body>
+</html>
