@@ -66,10 +66,9 @@ You can also set the API URL using the `A11Y_AI_API` environment variable.
   a11y report https://microsoft.com https://docs.microsoft.com
   ```
 
-- Interactively fix specific issues with additional context:
-
+- Interactively fix specific issues with additional context in a React component:
   ```bash
-  a11y fix doc.html \
+  a11y fix component.jsx \
     --issues "Add missing images alt attributes" \
     --context "This is a documentation where screenshots shows the different step to setup GitHub Copilot on your account" 
   ```
@@ -79,6 +78,13 @@ You can also set the API URL using the `A11Y_AI_API` environment variable.
   ```bash
   a11y
   ```
+
+### Notes
+
+The interactive `fix` command works best when used on small local files, HTML or components.
+For larger files or URLs, it is recommended to use the `report` command to generate a report of issues with fix suggestions.
+
+As the tool is still experimental and its UI feedback limited at the moment, it is recommended to use the `--verbose` option to get more detailed logs of what's happening.
 
 ### Accessibility issues scanning 
 
@@ -93,4 +99,4 @@ You can see a complete [example workflow](https://github.com/sinedied/a11y-ai/bl
 ## Known limitations
 
 - Issue scanning is only supported for HTML files, not for JS/TS components (but fixing is supported)
-- `--gpt-diff` options is experimental and may not work well in some cases
+- `--gpt-diff` options is experimental and may not work well in some cases, as the patch may fail to be applied at the right places
