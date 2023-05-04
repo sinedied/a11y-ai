@@ -20,6 +20,8 @@
     "lint": "xo",
     "lint:fix": "xo --fix",
     "test": "xo",
+    "playwright:install": "playwright install chromium",
+    "playwright:test": "A11Y_AI_URL=http://microsoft.com playwright test --config ./scan/playwright.config.cjs",
     "clean": "rm -rf lib *.tgz",
     "release:check": "semantic-release --dry-run"
   },
@@ -35,10 +37,10 @@
     "xo": "^0.53.1"
   },
   "dependencies": {
+    "@axe-core/playwright": "^4.7.0",
     "@dqbd/tiktoken": "^1.0.6",
     "@playwright/test": "^1.33.0",
     "ansi-to-html": "^0.7.2",
-    "axe-playwright": "^1.2.3",
     "chalk": "^5.2.0",
     "debug": "^4.3.4",
     "diff": "^5.1.0",
