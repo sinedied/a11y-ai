@@ -14,6 +14,8 @@
 
 ## Installation
 
+To use this tool you need [Node.js 16.4+](https://nodejs.org/).
+
 ```bash
 npm install -g a11y-ai
 ```
@@ -95,6 +97,20 @@ Accessibility issues scan is done using [Playwright](https://playwright.dev/) wi
 You can generate a report of all the issues found in your project automatically on your CI/CD using this GitHub Action: [sinedied/a11y-ai-action](https://github.com/sinedied/a11y-ai-action)
 
 You can see a complete [example workflow](https://github.com/sinedied/a11y-ai/blob/main/.github/workflows/action.yml) in action on this repository. -->
+
+## Troubleshooting
+
+If you get an error like this:
+
+```
+Could not scan issues for 'index.html': Error while running axe scan: Command failed: npx playwright test --config "/usr/local/lib/node_modules/a11y-ai/scan/playwright.config.cjs"
+```
+
+It may mean that the Playwright browsers were not installed correctly during the package installation. You can fix that by running this command (you can ignore the warning message it will print)):
+
+```bash
+npx -y playwright install chromium
+```
 
 ## Known limitations
 
