@@ -14,7 +14,7 @@
 
 ## Installation
 
-To use this tool you need [Node.js 16.4+](https://nodejs.org/).
+To use this tool you need [Node.js 16.4+](https://nodejs.org/). We recommended to install Node.js using [NVM](https://github.com/nvm-sh/nvm) (Mac OS, Linux or WSL) or [nvm-windows](https://github.com/coreybutler/nvm-windows) (Windows) to avoid issues.
 
 ```bash
 npm install -g a11y-ai
