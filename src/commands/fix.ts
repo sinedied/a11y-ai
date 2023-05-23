@@ -126,6 +126,12 @@ export async function fixFile(file: string, options: FixOptions = {}): Promise<F
 
     debug(`Suggested fix for '${file}':`);
     debug(generatePatchDiff(file, code, suggestion));
+
+    if (isUrl(file)) {
+      debug(`Cannot apply fix for '${file}': not a local file`);
+      return { file, scanned: scan, issues, fixed: true, accepted: false };
+    }
+
     const patchedContent = patchOriginalContent(file, content, code, suggestion);
     await fs.writeFile(file, patchedContent);
 
@@ -162,6 +168,11 @@ export async function interactiveFix(
 
   const confirm = await askForConfirmation(`${chalk.dim('---')}\nApply changes?`);
   if (confirm) {
+    if (isUrl(file)) {
+      console.info(`Cannot apply fix for ${chalk.cyan(file)}: not a local file`);
+      return false;
+    }
+
     await fs.writeFile(file, suggestion);
     debug(`Applied fix for '${file}'`);
     return true;
