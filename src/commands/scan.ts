@@ -51,6 +51,7 @@ export function formatScanResults(results: ScanResult[], options: ScanOptions = 
       output += `${chalk.dim(result.file)}: skipped (cannot scan for issues in non-HTML files)\n`;
     }
   }
+
   return output;
 }
 

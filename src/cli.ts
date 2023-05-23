@@ -95,7 +95,7 @@ export async function run(args: string[]) {
     case 's':
     case 'scan': {
       await scan(filesOrUrls, {
-        format: options.format as 'text' | 'json',
+        format: options.format as 'text' | 'json'
       });
       break;
     }
