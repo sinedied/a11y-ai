@@ -13,7 +13,8 @@ import {
   isUrl,
   resolveFilesOrUrls,
   downloadPageUrl,
-  patchOriginalContent
+  patchOriginalContent,
+  isHtmlFile
 } from '../util/index.js';
 
 const debug = createDebug('fix');
@@ -77,7 +78,7 @@ export async function fixFile(file: string, options: FixOptions = {}): Promise<F
   let issues = options.issues ?? [];
 
   try {
-    const scan = issues.length === 0 && (path.extname(file) === '.html' || isUrl(file));
+    const scan = issues.length === 0 && (isHtmlFile(file) || isUrl(file));
     if (scan) {
       debug(`Scanning for acessibility issues in '${file}'...`);
       const issueDetails = await scanIssues(file);

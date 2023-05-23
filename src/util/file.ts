@@ -3,7 +3,7 @@ import { fileURLToPath } from 'node:url';
 import process from 'node:process';
 import fs from 'node:fs/promises';
 import glob from 'fast-glob';
-import { reportOutputFilename } from '../constants.js';
+import { allowedHtmlExtensions, reportOutputFilename } from '../constants.js';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
@@ -31,8 +31,12 @@ export function isUrl(file: string): boolean {
   return /https?:/.test(file);
 }
 
+export function isHtmlFile(file: string): boolean {
+  return allowedHtmlExtensions.includes(path.extname(file).slice(1));
+}
+
 export async function resolveFilesOrUrls(filesOrUrls: string[]): Promise<string[]> {
-  const globs = filesOrUrls.length > 0 ? filesOrUrls : ['**/*.html'];
+  const globs = filesOrUrls.length > 0 ? filesOrUrls : [`**/*.(${allowedHtmlExtensions.join('|')})`];
   if (isUrl(globs[0])) {
     return globs;
   }
