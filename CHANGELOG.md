@@ -1,3 +1,17 @@
+# [0.13.0](https://github.com/sinedied/a11y-ai/compare/0.12.0...0.13.0) (2023-05-23)
+
+
+### Bug Fixes
+
+* detect .htm files as html properly ([191ed03](https://github.com/sinedied/a11y-ai/commit/191ed03af6ed0b2220b35f6aeba53bc219de6b56))
+* prevent applying fix to URLs ([8e6e07b](https://github.com/sinedied/a11y-ai/commit/8e6e07bbd7eecc0ce31006d122b26a2e2610b4b0))
+
+
+### Features
+
+* add --format json option for scan command ([a9ae9cd](https://github.com/sinedied/a11y-ai/commit/a9ae9cdba35307683c12e18fba621006e1b2e65c))
+* migrate to official @axe-core/playwright package ([009ef84](https://github.com/sinedied/a11y-ai/commit/009ef84cb6562578ba14e8ad31ce224f693e37cb))
+
 # [0.12.0](https://github.com/sinedied/a11y-ai/compare/0.11.0...0.12.0) (2023-05-03)
 
 
