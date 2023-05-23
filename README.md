@@ -30,7 +30,8 @@ subdirectories for HTML files.
 
 Commands:
   s, scan                     Scan files or URLs for accessibility issues
-
+    -o, --format <format>     Report format [text, json] (default: text)
+    
   f, fix                      Fix accessibility issues interactively
     -i, --issues <issues>     Comma-separated list of issues to fix (disable scan)
     -s, --chunk-size <tokens> Set input chunk size (default: 1000)

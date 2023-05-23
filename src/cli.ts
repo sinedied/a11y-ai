@@ -16,6 +16,7 @@ subdirectories for HTML files.
 
 ${chalk.bold('Commands:')}
   s, scan                     Scan files or URLs for accessibility issues
+    -o, --format <format>     Report format [text, json] (default: text)
 
   f, fix                      Fix accessibility issues interactively
     -i, --issues <issues>     Comma-separated list of issues to fix (disable scan)
@@ -93,7 +94,9 @@ export async function run(args: string[]) {
 
     case 's':
     case 'scan': {
-      await scan(filesOrUrls);
+      await scan(filesOrUrls, {
+        format: options.format as 'text' | 'json',
+      });
       break;
     }
 
