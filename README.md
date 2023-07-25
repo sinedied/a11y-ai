@@ -14,7 +14,7 @@
 
 ## Installation
 
-To use this tool you need [Node.js 16.4+](https://nodejs.org/).
+To use this tool you need [Node.js 16.4+](https://nodejs.org/). We recommended to install Node.js using [NVM](https://github.com/nvm-sh/nvm) (Mac OS, Linux or WSL) or [nvm-windows](https://github.com/coreybutler/nvm-windows) (Windows) to avoid issues.
 
 ```bash
 npm install -g a11y-ai
@@ -30,7 +30,8 @@ subdirectories for HTML files.
 
 Commands:
   s, scan                     Scan files or URLs for accessibility issues
-
+    -o, --format <format>     Report format [text, json] (default: text)
+    
   f, fix                      Fix accessibility issues interactively
     -i, --issues <issues>     Comma-separated list of issues to fix (disable scan)
     -s, --chunk-size <tokens> Set input chunk size (default: 1000)

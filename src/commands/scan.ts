@@ -4,11 +4,13 @@ import chalk from 'chalk';
 import createDebug from 'debug';
 import ora from 'ora';
 import { type AxeIssue, scanIssues } from '../core/index.js';
-import { isUrl, resolveFilesOrUrls } from '../util/index.js';
+import { isHtmlFile, isUrl, resolveFilesOrUrls } from '../util/index.js';
 
 const debug = createDebug('scan');
 
-export type ScanOptions = Record<string, unknown>;
+export type ScanOptions = {
+  format?: 'text' | 'json';
+};
 
 export type ScanResult = {
   file: string;
@@ -24,16 +26,7 @@ export async function scan(files: string[], options: ScanOptions = {}) {
     const promises = files.map(async (file) => scanFile(file, options));
     const results = await Promise.all(promises);
     spinner.stop();
-    for (const result of results) {
-      if (result.issues.length > 0) {
-        console.info(`${result.file}: ${result.issues.length} issues`);
-        for (const issue of result.issues) {
-          console.info(`  - ${chalk.red(issue.help)}`);
-        }
-      } else if (result.skipped) {
-        console.info(`${chalk.dim(result.file)}: skipped (cannot scan for issues in non-HTML files)`);
-      }
-    }
+    console.info(formatScanResults(results, options));
   } catch (error: unknown) {
     spinner?.fail();
     const error_ = error as Error;
@@ -42,9 +35,29 @@ export async function scan(files: string[], options: ScanOptions = {}) {
   }
 }
 
+export function formatScanResults(results: ScanResult[], options: ScanOptions = {}): string {
+  if (options.format === 'json') {
+    return JSON.stringify(results, null, 2);
+  }
+
+  let output = '';
+  for (const result of results) {
+    if (result.issues.length > 0) {
+      output += `${result.file}: ${result.issues.length} issues\n`;
+      for (const issue of result.issues) {
+        output += `  - ${chalk.red(issue.help)}\n`;
+      }
+    } else if (result.skipped) {
+      output += `${chalk.dim(result.file)}: skipped (cannot scan for issues in non-HTML files)\n`;
+    }
+  }
+
+  return output;
+}
+
 export async function scanFile(file: string, options: ScanOptions = {}): Promise<ScanResult> {
   try {
-    if (!isUrl(file) && path.extname(file) !== '.html') {
+    if (!isUrl(file) && !isHtmlFile(file)) {
       return { file, issues: [], skipped: true };
     }
 
