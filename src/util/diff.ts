@@ -41,8 +41,9 @@ export function applyPatchDiff(content: string, suggestion: string, isDiff = fal
     throw new Error(`Could not parse patch suggestion`);
   } else {
     for (const patch of patches) {
-      finalSuggestion = applyPatch(finalSuggestion, patch, { fuzzFactor });
-      if (finalSuggestion) {
+      const patchedResult = applyPatch(finalSuggestion, patch, { fuzzFactor });
+      if (patchedResult !== false) {
+        finalSuggestion = patchedResult;
         debug(`Applied patch`);
       } else {
         if (createDebug.enabled('diff')) {
