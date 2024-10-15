@@ -11,3 +11,7 @@ tmp/
 Thumbs.db
 .env
 TODO
+test-results/
+package-lock.json
+script.txt
+
