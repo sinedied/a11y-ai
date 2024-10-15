@@ -14,5 +14,4 @@ TODO
 test-results/
 package-lock.json
 script.txt
-bin/
-bin/a11y-ai.js
+
