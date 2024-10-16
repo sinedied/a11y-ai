@@ -24,7 +24,7 @@ jobs:
     - uses: actions-ecosystem/action-create-comment@v1
       if: ${{ github.event_name == 'pull_request' }}
       with:
-        github_token: ${{ secrets.GH_TOKEN }}
+        github_token: ${{ secrets.GITHUB_TOKEN }}
         body: |
           ${{ steps.a11y_ai.outputs.report_md }}
 
